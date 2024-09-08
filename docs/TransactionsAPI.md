@@ -102,7 +102,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/celenium-io/celenium-api-go"
+	celenium "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {

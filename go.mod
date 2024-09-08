@@ -1,4 +1,4 @@
-module github.com/celenium-io/celenium-api-go
+module github.com/mismirnov/celenium-api-go
 
 go 1.18
 

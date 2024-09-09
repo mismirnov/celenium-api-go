@@ -1,16 +1,16 @@
-name: Generate API
+name: Celenium api wrapper
 
 on:
   repository_dispatch:
+    types: [tag_created] 
 
 jobs:
-  trigger_job:
+  triggered_job:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Print message
-        run: echo "This workflow was triggered by a tag in another repository."
-
-  
+      - name: Print tag message
+        run: echo "Triggered by tag creation in another repository!"

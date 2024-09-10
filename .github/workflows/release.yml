@@ -14,22 +14,13 @@ jobs:
       - name: Cleanup old client
         run: rm -rf celenium-api-go/
 
-      - name: Install Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-
-      - name: Download OpenAPI Generator CLI
-        run: |
-          wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/6.2.0/openapi-generator-cli-6.2.0.jar -O openapi-generator-cli.jar
-
       - name: Generate API client
         run: |
-          java -jar openapi-generator-cli.jar generate \
+          docker run --rm \
+            -v ${{ github.workspace }}:/local openapitools/openapi-generator-cli generate \
             -i https://raw.githubusercontent.com/mismirnov/celestia-indexer/${{ github.event.client_payload.tag }}/cmd/api/docs/swagger.json \
             -g go \
-            -o ./celenium-api-go \
+            -o /local/celenium-api-go \
             -p packageName=celenium --skip-validate-spec
           
       - name: Configure Git

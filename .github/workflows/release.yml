@@ -15,14 +15,17 @@ jobs:
       - name: Cleanup old client
         run: rm -rf celenium-api-go/
           
+      - name: Set up OpenAPI Generator
+        run: |
+          wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/6.2.0/openapi-generator-cli-6.2.0.jar -O openapi-generator-cli.jar
+
       - name: Generate API client
-        uses: openapitools/openapi-generator-cli@v2.1.8
-        with:
-          generator-name: go
-          input-spec: https://api.celenium.io/v1/swagger/doc.json
-          output: ./celenium-api-go
-          additional-properties: packageName=celenium
-          generator-cli-args: "--skip-validate-spec"
+        run: |
+          java -jar openapi-generator-cli.jar generate \
+            -i https://api.celenium.io/v1/swagger/doc.json \
+            -g go \
+            -o ./celenium-api-go \
+            -p packageName=celenium --skip-validate-spec
           
       - name: Configure Git
         run: |

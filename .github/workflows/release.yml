@@ -16,7 +16,7 @@ jobs:
         run: rm -rf celenium-api-go/
           
       - name: Generate API client
-        uses: openapitools/openapi-generator-cli-action@v2
+        uses: openapitools/openapi-generator-cli@v2.1.8
         with:
           generator-name: go
           input-spec: https://api.celenium.io/v1/swagger/doc.json

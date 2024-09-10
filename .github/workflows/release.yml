@@ -13,4 +13,5 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Print tag message
-        run: echo "Triggered by tag creation in another repository!"
+        run: |
+          echo "Received tag: ${{ github.event.client_payload.tag }}"

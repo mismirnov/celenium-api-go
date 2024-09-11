@@ -14,12 +14,11 @@ jobs:
       
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Delete all files except .github/workflows and LICENSE
         run: |
           find . -mindepth 1 \
-            ! -name '.git' \
             ! -path './.github/workflows*' \
             ! -name 'LICENSE' \
             -exec rm -rf {} +

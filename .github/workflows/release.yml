@@ -6,14 +6,6 @@ on:
 
 jobs:
   triggered_job:
-    
-    docker run --rm \
-    -v "${PWD}/Projects:/local" openapitools/openapi-generator-cli generate \
-    -i https://raw.githubusercontent.com/celenium-io/celestia-indexer/v1.10.1/cmd/api/docs/swagger.json \
-    -g go \
-    -p packageName=celenium --skip-validate-spec \
-    -o /local/mismirnov/celenium-api-go --git-repo-id celenium-api-go --git-user-id mismirnov
-    
     runs-on: ubuntu-latest
     
     permissions:
@@ -38,8 +30,8 @@ jobs:
             -v ${{ github.workspace }}:/local openapitools/openapi-generator-cli generate \
             -i https://raw.githubusercontent.com/mismirnov/celestia-indexer/${{ github.event.client_payload.tag }}/cmd/api/docs/swagger.json \
             -g go \
-            -o /local \
-            -p packageName=celenium --skip-validate-spec
+            -p packageName=celenium --skip-validate-spec \
+            -o /local --git-repo-id celenium-api-go --git-user-id mismirnov
           
       - name: Configure Git
         run: |

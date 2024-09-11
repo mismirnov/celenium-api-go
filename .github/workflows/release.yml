@@ -19,8 +19,9 @@ jobs:
       - name: Delete all files except .github/workflows and LICENSE
         run: |
           find . -mindepth 1 \
-            ! -path './.github/workflows*' \
-            ! -name 'LICENSE' \
+            -not -path './.git*' \
+            -not -path './.github/workflows*' \
+            -not -name 'LICENSE' \
             -exec rm -rf {} +
 
       - name: Generate API client

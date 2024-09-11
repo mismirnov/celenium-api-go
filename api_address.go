@@ -71,7 +71,7 @@ func (r ApiAddressBlobsRequest) Execute() ([]ResponsesBlobLog, *http.Response, e
 /*
 AddressBlobs Get blobs pushed by address
 
-Get blobs pushed by address
+Test description for openApi
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param hash Hash

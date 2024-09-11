@@ -1,6 +1,6 @@
 # \ValidatorAPI
 
-All URIs are relative to *https://api.celenium.io/v1*
+All URIs are relative to *https://api-mainnet.celenium.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -31,14 +31,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	id := int32(56) // int32 | Internal validator id
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.ValidatorAPI.GetValidator(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.GetValidator``: %v\n", err)
@@ -101,7 +101,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -109,8 +109,8 @@ func main() {
 	limit := int32(56) // int32 | Count of requested entities (optional)
 	offset := int32(56) // int32 | Offset (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.ValidatorAPI.GetValidatorBlocks(context.Background(), id).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.GetValidatorBlocks``: %v\n", err)
@@ -175,15 +175,15 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	id := int32(56) // int32 | Internal validator id
 	limit := int32(56) // int32 | Count of requested blocks (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.ValidatorAPI.GetValidatorUptime(context.Background(), id).Limit(limit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.GetValidatorUptime``: %v\n", err)
@@ -247,7 +247,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -255,8 +255,8 @@ func main() {
 	offset := int32(56) // int32 | Offset (optional)
 	jailed := true // bool | Return only jailed validators (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.ValidatorAPI.ListValidator(context.Background()).Limit(limit).Offset(offset).Jailed(jailed).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.ListValidator``: %v\n", err)
@@ -317,13 +317,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.ValidatorAPI.ValidatorCount(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.ValidatorCount``: %v\n", err)
@@ -378,7 +378,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -387,8 +387,8 @@ func main() {
 	offset := int32(56) // int32 | Offset (optional)
 	showZero := true // bool | Show zero delegations (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.ValidatorAPI.ValidatorDelegators(context.Background(), id).Limit(limit).Offset(offset).ShowZero(showZero).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.ValidatorDelegators``: %v\n", err)
@@ -454,7 +454,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -462,8 +462,8 @@ func main() {
 	limit := int32(56) // int32 | Count of requested entities (optional)
 	offset := int32(56) // int32 | Offset (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.ValidatorAPI.ValidatorJails(context.Background(), id).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.ValidatorJails``: %v\n", err)

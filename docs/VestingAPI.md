@@ -1,6 +1,6 @@
 # \VestingAPI
 
-All URIs are relative to *https://api.celenium.io/v1*
+All URIs are relative to *https://api-mainnet.celenium.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -25,7 +25,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -33,8 +33,8 @@ func main() {
 	limit := int32(56) // int32 | Count of requested entities (optional)
 	offset := int32(56) // int32 | Offset (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.VestingAPI.GetVestingPeriods(context.Background(), id).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VestingAPI.GetVestingPeriods``: %v\n", err)

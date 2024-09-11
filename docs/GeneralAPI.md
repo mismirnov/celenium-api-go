@@ -1,6 +1,6 @@
 # \GeneralAPI
 
-All URIs are relative to *https://api.celenium.io/v1*
+All URIs are relative to *https://api-mainnet.celenium.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -27,13 +27,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.GeneralAPI.GetConstants(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GeneralAPI.GetConstants``: %v\n", err)
@@ -88,13 +88,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.GeneralAPI.GetEnums(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GeneralAPI.GetEnums``: %v\n", err)
@@ -149,13 +149,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.GeneralAPI.Head(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GeneralAPI.Head``: %v\n", err)

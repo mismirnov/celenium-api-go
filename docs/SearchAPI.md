@@ -1,6 +1,6 @@
 # \SearchAPI
 
-All URIs are relative to *https://api.celenium.io/v1*
+All URIs are relative to *https://api-mainnet.celenium.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -25,14 +25,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	query := "query_example" // string | Search string
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.SearchAPI.Search(context.Background()).Query(query).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.Search``: %v\n", err)

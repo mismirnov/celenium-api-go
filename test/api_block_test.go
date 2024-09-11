@@ -11,20 +11,20 @@ package celenium
 
 import (
 	"context"
-	celeniumApi "github.com/mismirnov/celenium-api-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func Test_celenium_BlockAPIService(t *testing.T) {
 
-	configuration := celeniumApi.NewConfiguration()
-	apiClient := celeniumApi.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test BlockAPIService BlockBlobsCount", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var height int32
 
@@ -38,7 +38,7 @@ func Test_celenium_BlockAPIService(t *testing.T) {
 
 	t.Run("Test BlockAPIService GetBlock", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var height int32
 
@@ -52,7 +52,7 @@ func Test_celenium_BlockAPIService(t *testing.T) {
 
 	t.Run("Test BlockAPIService GetBlockBlobs", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var height int32
 
@@ -66,7 +66,7 @@ func Test_celenium_BlockAPIService(t *testing.T) {
 
 	t.Run("Test BlockAPIService GetBlockCount", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.BlockAPI.GetBlockCount(context.Background()).Execute()
 
@@ -78,7 +78,7 @@ func Test_celenium_BlockAPIService(t *testing.T) {
 
 	t.Run("Test BlockAPIService GetBlockEvents", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var height int32
 
@@ -92,7 +92,7 @@ func Test_celenium_BlockAPIService(t *testing.T) {
 
 	t.Run("Test BlockAPIService GetBlockMessages", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var height int32
 
@@ -106,7 +106,7 @@ func Test_celenium_BlockAPIService(t *testing.T) {
 
 	t.Run("Test BlockAPIService GetBlockStats", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var height int32
 
@@ -120,7 +120,7 @@ func Test_celenium_BlockAPIService(t *testing.T) {
 
 	t.Run("Test BlockAPIService ListBlock", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.BlockAPI.ListBlock(context.Background()).Execute()
 

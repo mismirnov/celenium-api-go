@@ -1,6 +1,6 @@
 # \GasAPI
 
-All URIs are relative to *https://api.celenium.io/v1*
+All URIs are relative to *https://api-mainnet.celenium.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -26,14 +26,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	sizes := "sizes_example" // string | Comma-separated array of blob sizes
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.GasAPI.GasEstimateForPfb(context.Background()).Sizes(sizes).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GasAPI.GasEstimateForPfb``: %v\n", err)
@@ -92,13 +92,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.GasAPI.GasPrice(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GasAPI.GasPrice``: %v\n", err)

@@ -11,20 +11,20 @@ package celenium
 
 import (
 	"context"
-	celeniumApi "github.com/mismirnov/celenium-api-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func Test_celenium_RollupAPIService(t *testing.T) {
 
-	configuration := celeniumApi.NewConfiguration()
-	apiClient := celeniumApi.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test RollupAPIService GetRollup", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 
@@ -38,7 +38,7 @@ func Test_celenium_RollupAPIService(t *testing.T) {
 
 	t.Run("Test RollupAPIService GetRollupAllSeries", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.RollupAPI.GetRollupAllSeries(context.Background()).Execute()
 
@@ -50,7 +50,7 @@ func Test_celenium_RollupAPIService(t *testing.T) {
 
 	t.Run("Test RollupAPIService GetRollupBlobs", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 
@@ -64,7 +64,7 @@ func Test_celenium_RollupAPIService(t *testing.T) {
 
 	t.Run("Test RollupAPIService GetRollupBySlug", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var slug string
 
@@ -78,7 +78,7 @@ func Test_celenium_RollupAPIService(t *testing.T) {
 
 	t.Run("Test RollupAPIService GetRollupDistribution", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 		var name string
@@ -94,7 +94,7 @@ func Test_celenium_RollupAPIService(t *testing.T) {
 
 	t.Run("Test RollupAPIService GetRollupNamespaces", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 
@@ -108,7 +108,7 @@ func Test_celenium_RollupAPIService(t *testing.T) {
 
 	t.Run("Test RollupAPIService GetRollupStats", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 		var name string
@@ -124,7 +124,7 @@ func Test_celenium_RollupAPIService(t *testing.T) {
 
 	t.Run("Test RollupAPIService GetRollupsCount", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.RollupAPI.GetRollupsCount(context.Background()).Execute()
 
@@ -136,7 +136,7 @@ func Test_celenium_RollupAPIService(t *testing.T) {
 
 	t.Run("Test RollupAPIService ListRollup", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.RollupAPI.ListRollup(context.Background()).Execute()
 
@@ -148,7 +148,7 @@ func Test_celenium_RollupAPIService(t *testing.T) {
 
 	t.Run("Test RollupAPIService ListRollup24h", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.RollupAPI.ListRollup24h(context.Background()).Execute()
 
@@ -160,7 +160,7 @@ func Test_celenium_RollupAPIService(t *testing.T) {
 
 	t.Run("Test RollupAPIService RollupExport", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 

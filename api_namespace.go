@@ -156,6 +156,9 @@ type ApiGetBlobLogsRequest struct {
 	commitment *string
 	from *int32
 	to *int32
+	joins *bool
+	signers *string
+	cursor *int32
 }
 
 // Count of requested entities
@@ -197,6 +200,24 @@ func (r ApiGetBlobLogsRequest) From(from int32) ApiGetBlobLogsRequest {
 // Time to in unix timestamp
 func (r ApiGetBlobLogsRequest) To(to int32) ApiGetBlobLogsRequest {
 	r.to = &to
+	return r
+}
+
+// Flag indicating whether entities of rollup, transaction and signer should be attached or not. Default: true
+func (r ApiGetBlobLogsRequest) Joins(joins bool) ApiGetBlobLogsRequest {
+	r.joins = &joins
+	return r
+}
+
+// Comma-separated celestia addresses
+func (r ApiGetBlobLogsRequest) Signers(signers string) ApiGetBlobLogsRequest {
+	r.signers = &signers
+	return r
+}
+
+// Last entity id which is used for cursor pagination
+func (r ApiGetBlobLogsRequest) Cursor(cursor int32) ApiGetBlobLogsRequest {
+	r.cursor = &cursor
 	return r
 }
 
@@ -272,6 +293,15 @@ func (a *NamespaceAPIService) GetBlobLogsExecute(r ApiGetBlobLogsRequest) ([]Res
 	}
 	if r.to != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "", "")
+	}
+	if r.joins != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "joins", r.joins, "", "")
+	}
+	if r.signers != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "signers", r.signers, "", "")
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -422,6 +452,215 @@ func (a *NamespaceAPIService) GetBlobMetadataExecute(r ApiGetBlobMetadataRequest
 	}
 	// body params
 	localVarPostBody = r.commitment
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v HandlerError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetBlobsRequest struct {
+	ctx context.Context
+	ApiService *NamespaceAPIService
+	limit *int32
+	offset *int32
+	sort *string
+	sortBy *string
+	commitment *string
+	from *int32
+	to *int32
+	signers *string
+	namespaces *string
+	cursor *int32
+}
+
+// Count of requested entities
+func (r ApiGetBlobsRequest) Limit(limit int32) ApiGetBlobsRequest {
+	r.limit = &limit
+	return r
+}
+
+// Offset
+func (r ApiGetBlobsRequest) Offset(offset int32) ApiGetBlobsRequest {
+	r.offset = &offset
+	return r
+}
+
+// Sort order. Default: desc
+func (r ApiGetBlobsRequest) Sort(sort string) ApiGetBlobsRequest {
+	r.sort = &sort
+	return r
+}
+
+// Sort field. If it&#39;s empty internal id is used
+func (r ApiGetBlobsRequest) SortBy(sortBy string) ApiGetBlobsRequest {
+	r.sortBy = &sortBy
+	return r
+}
+
+// Commitment value in URLbase64 format
+func (r ApiGetBlobsRequest) Commitment(commitment string) ApiGetBlobsRequest {
+	r.commitment = &commitment
+	return r
+}
+
+// Time from in unix timestamp
+func (r ApiGetBlobsRequest) From(from int32) ApiGetBlobsRequest {
+	r.from = &from
+	return r
+}
+
+// Time to in unix timestamp
+func (r ApiGetBlobsRequest) To(to int32) ApiGetBlobsRequest {
+	r.to = &to
+	return r
+}
+
+// Comma-separated celestia addresses
+func (r ApiGetBlobsRequest) Signers(signers string) ApiGetBlobsRequest {
+	r.signers = &signers
+	return r
+}
+
+// Comma-separated celestia namespaces
+func (r ApiGetBlobsRequest) Namespaces(namespaces string) ApiGetBlobsRequest {
+	r.namespaces = &namespaces
+	return r
+}
+
+// Last entity id which is used for cursor pagination
+func (r ApiGetBlobsRequest) Cursor(cursor int32) ApiGetBlobsRequest {
+	r.cursor = &cursor
+	return r
+}
+
+func (r ApiGetBlobsRequest) Execute() ([]ResponsesLightBlobLog, *http.Response, error) {
+	return r.ApiService.GetBlobsExecute(r)
+}
+
+/*
+GetBlobs List all blobs with filters
+
+Returns blobs
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetBlobsRequest
+*/
+func (a *NamespaceAPIService) GetBlobs(ctx context.Context) ApiGetBlobsRequest {
+	return ApiGetBlobsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return []ResponsesLightBlobLog
+func (a *NamespaceAPIService) GetBlobsExecute(r ApiGetBlobsRequest) ([]ResponsesLightBlobLog, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ResponsesLightBlobLog
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespaceAPIService.GetBlobs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/blob"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "", "")
+	}
+	if r.sortBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_by", r.sortBy, "", "")
+	}
+	if r.commitment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commitment", r.commitment, "", "")
+	}
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "", "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "", "")
+	}
+	if r.signers != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "signers", r.signers, "", "")
+	}
+	if r.namespaces != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "namespaces", r.namespaces, "", "")
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

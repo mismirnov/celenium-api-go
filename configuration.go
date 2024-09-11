@@ -90,7 +90,7 @@ func NewConfiguration() *Configuration {
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "https://api.celenium.io/v1",
+				URL: "https://api-mainnet.celenium.io/v1",
 				Description: "No description provided",
 			},
 		},

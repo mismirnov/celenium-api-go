@@ -11,20 +11,20 @@ package celenium
 
 import (
 	"context"
-	celeniumApi "github.com/mismirnov/celenium-api-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func Test_celenium_TransactionsAPIService(t *testing.T) {
 
-	configuration := celeniumApi.NewConfiguration()
-	apiClient := celeniumApi.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test TransactionsAPIService GetTransaction", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var hash string
 
@@ -38,7 +38,7 @@ func Test_celenium_TransactionsAPIService(t *testing.T) {
 
 	t.Run("Test TransactionsAPIService GetTransactionEvents", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var hash string
 
@@ -52,7 +52,7 @@ func Test_celenium_TransactionsAPIService(t *testing.T) {
 
 	t.Run("Test TransactionsAPIService GetTransactionMessages", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var hash string
 
@@ -66,7 +66,7 @@ func Test_celenium_TransactionsAPIService(t *testing.T) {
 
 	t.Run("Test TransactionsAPIService GetTransactionsCount", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.TransactionsAPI.GetTransactionsCount(context.Background()).Execute()
 
@@ -78,7 +78,7 @@ func Test_celenium_TransactionsAPIService(t *testing.T) {
 
 	t.Run("Test TransactionsAPIService ListGenesisTransactions", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.TransactionsAPI.ListGenesisTransactions(context.Background()).Execute()
 
@@ -90,7 +90,7 @@ func Test_celenium_TransactionsAPIService(t *testing.T) {
 
 	t.Run("Test TransactionsAPIService ListTransactionBlobs", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var hash string
 
@@ -104,7 +104,7 @@ func Test_celenium_TransactionsAPIService(t *testing.T) {
 
 	t.Run("Test TransactionsAPIService ListTransactions", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.TransactionsAPI.ListTransactions(context.Background()).Execute()
 
@@ -116,7 +116,7 @@ func Test_celenium_TransactionsAPIService(t *testing.T) {
 
 	t.Run("Test TransactionsAPIService TransactionBlobsCount", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var hash string
 

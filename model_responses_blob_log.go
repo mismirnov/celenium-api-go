@@ -23,6 +23,7 @@ type ResponsesBlobLog struct {
 	Commitment *string `json:"commitment,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
 	Height *int32 `json:"height,omitempty"`
+	Id *int32 `json:"id,omitempty"`
 	Namespace *ResponsesNamespace `json:"namespace,omitempty"`
 	Rollup *ResponsesShortRollup `json:"rollup,omitempty"`
 	Signer *string `json:"signer,omitempty"`
@@ -142,6 +143,38 @@ func (o *ResponsesBlobLog) HasHeight() bool {
 // SetHeight gets a reference to the given int32 and assigns it to the Height field.
 func (o *ResponsesBlobLog) SetHeight(v int32) {
 	o.Height = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ResponsesBlobLog) GetId() int32 {
+	if o == nil || IsNil(o.Id) {
+		var ret int32
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesBlobLog) GetIdOk() (*int32, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ResponsesBlobLog) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *ResponsesBlobLog) SetId(v int32) {
+	o.Id = &v
 }
 
 // GetNamespace returns the Namespace field value if set, zero value otherwise.
@@ -354,6 +387,9 @@ func (o ResponsesBlobLog) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Height) {
 		toSerialize["height"] = o.Height
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
 	}
 	if !IsNil(o.Namespace) {
 		toSerialize["namespace"] = o.Namespace

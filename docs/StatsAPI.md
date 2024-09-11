@@ -1,6 +1,6 @@
 # \StatsAPI
 
-All URIs are relative to *https://api.celenium.io/v1*
+All URIs are relative to *https://api-mainnet.celenium.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -36,13 +36,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.Stats24hChanges(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.Stats24hChanges``: %v\n", err)
@@ -97,13 +97,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsMessagesCount24h(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsMessagesCount24h``: %v\n", err)
@@ -158,14 +158,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	top := int32(56) // int32 | Count of entities (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsNamespaceUsage(context.Background()).Top(top).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsNamespaceUsage``: %v\n", err)
@@ -224,7 +224,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -234,8 +234,8 @@ func main() {
 	from := int32(56) // int32 | Time from in unix timestamp (optional)
 	to := int32(56) // int32 | Time to in unix timestamp (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsNsSeries(context.Background(), id, timeframe, name).From(from).To(to).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsNsSeries``: %v\n", err)
@@ -304,13 +304,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsPriceCurrent(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsPriceCurrent``: %v\n", err)
@@ -365,7 +365,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -373,8 +373,8 @@ func main() {
 	from := int32(56) // int32 | Time from in unix timestamp (optional)
 	to := int32(56) // int32 | Time to in unix timestamp (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsPriceSeries(context.Background(), timeframe).From(from).To(to).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsPriceSeries``: %v\n", err)
@@ -439,13 +439,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsRollup24h(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsRollup24h``: %v\n", err)
@@ -500,7 +500,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -509,8 +509,8 @@ func main() {
 	from := int32(56) // int32 | Time from in unix timestamp (optional)
 	to := int32(56) // int32 | Time to in unix timestamp (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsSeries(context.Background(), timeframe, name).From(from).To(to).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsSeries``: %v\n", err)
@@ -577,7 +577,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -586,8 +586,8 @@ func main() {
 	from := int32(56) // int32 | Time from in unix timestamp (optional)
 	to := int32(56) // int32 | Time to in unix timestamp (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsSeriesCumulative(context.Background(), timeframe, name).From(from).To(to).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsSeriesCumulative``: %v\n", err)
@@ -654,15 +654,15 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	from := int32(56) // int32 | Time from in unix timestamp (optional)
 	to := int32(56) // int32 | Time to in unix timestamp (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsSquareSize(context.Background()).From(from).To(to).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsSquareSize``: %v\n", err)
@@ -722,7 +722,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -732,8 +732,8 @@ func main() {
 	from := int32(56) // int32 | Time from in unix timestamp (optional)
 	to := int32(56) // int32 | Time to in unix timestamp (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsStakingSeries(context.Background(), id, timeframe, name).From(from).To(to).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsStakingSeries``: %v\n", err)
@@ -802,7 +802,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -812,8 +812,8 @@ func main() {
 	from := int32(56) // int32 | Time from in unix timestamp (optional)
 	to := int32(56) // int32 | Time to in unix timestamp (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.StatsAPI.StatsSummary(context.Background(), table, function).Column(column).From(from).To(to).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StatsAPI.StatsSummary``: %v\n", err)

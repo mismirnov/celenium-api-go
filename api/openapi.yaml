@@ -5,7 +5,7 @@ info:
   title: Celenium API
   version: "1.0"
 servers:
-- url: https://api.celenium.io/v1
+- url: https://api-mainnet.celenium.io/v1
 paths:
   /address:
     get:
@@ -167,6 +167,12 @@ paths:
           - time
           - size
           type: string
+      - description: "Flag indicating whether entities of transaction and namespace\
+          \ should be attached or not. Default: true"
+        in: query
+        name: joins
+        schema:
+          type: boolean
       responses:
         "200":
           content:
@@ -872,6 +878,85 @@ paths:
       tags:
       - address
   /blob:
+    get:
+      description: Returns blobs
+      operationId: get-blobs
+      parameters:
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: "Sort order. Default: desc"
+        in: query
+        name: sort
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Sort field. If it's empty internal id is used
+        in: query
+        name: sort_by
+        schema:
+          enum:
+          - time
+          - size
+          type: string
+      - description: Commitment value in URLbase64 format
+        in: query
+        name: commitment
+        schema:
+          type: string
+      - description: Time from in unix timestamp
+        in: query
+        name: from
+        schema:
+          type: integer
+      - description: Time to in unix timestamp
+        in: query
+        name: to
+        schema:
+          type: integer
+      - description: Comma-separated celestia addresses
+        in: query
+        name: signers
+        schema:
+          type: string
+      - description: Comma-separated celestia namespaces
+        in: query
+        name: namespaces
+        schema:
+          type: string
+      - description: Last entity id which is used for cursor pagination
+        in: query
+        name: cursor
+        schema:
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/responses.LightBlobLog'
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/handler.Error'
+          description: Bad Request
+      summary: List all blobs with filters
+      tags:
+      - namespace
     post:
       description: Returns blob
       operationId: get-blob
@@ -1827,6 +1912,22 @@ paths:
         name: to
         schema:
           type: integer
+      - description: "Flag indicating whether entities of rollup, transaction and\
+          \ signer should be attached or not. Default: true"
+        in: query
+        name: joins
+        schema:
+          type: boolean
+      - description: Comma-separated celestia addresses
+        in: query
+        name: signers
+        schema:
+          type: string
+      - description: Last entity id which is used for cursor pagination
+        in: query
+        name: cursor
+        schema:
+          type: integer
       responses:
         "200":
           content:
@@ -2312,6 +2413,12 @@ paths:
           - time
           - size
           type: string
+      - description: "Flag indicating whether entities of transaction and signer should\
+          \ be attached or not. Default: true"
+        in: query
+        name: joins
+        schema:
+          type: boolean
       responses:
         "200":
           content:
@@ -4377,6 +4484,7 @@ components:
           hash: U3dhZ2dlciByb2Nrcw==
           last_height: 100
         commitment: vbGakK59+Non81TE3ULg5Ve5ufT9SFm/bCyY+WLR3gg=
+        id: 200
         time: 2023-07-04T03:10:57Z
         height: 100
         rollup:
@@ -4396,6 +4504,10 @@ components:
           type: string
         height:
           example: 100
+          format: integer
+          type: integer
+        id:
+          example: 200
           format: integer
           type: integer
         namespace:
@@ -4883,6 +4995,55 @@ components:
           type: string
         validator:
           $ref: '#/components/schemas/responses.ShortValidator'
+      type: object
+    responses.LightBlobLog:
+      example:
+        content_type: image/png
+        size: 10
+        namespace: AAAAAAAAAAAAAAAAAAAAAAAAAAAAs2bWWU6FOB0=
+        commitment: vbGakK59+Non81TE3ULg5Ve5ufT9SFm/bCyY+WLR3gg=
+        tx_hash: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+        id: 200
+        time: 2023-07-04T03:10:57Z
+        height: 100
+        signer: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+      properties:
+        commitment:
+          example: vbGakK59+Non81TE3ULg5Ve5ufT9SFm/bCyY+WLR3gg=
+          format: base64
+          type: string
+        content_type:
+          example: image/png
+          format: string
+          type: string
+        height:
+          example: 100
+          format: integer
+          type: integer
+        id:
+          example: 200
+          format: integer
+          type: integer
+        namespace:
+          example: AAAAAAAAAAAAAAAAAAAAAAAAAAAAs2bWWU6FOB0=
+          format: base64
+          type: string
+        signer:
+          example: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+          format: string
+          type: string
+        size:
+          example: 10
+          format: integer
+          type: integer
+        time:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        tx_hash:
+          example: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+          format: binary
+          type: string
       type: object
     responses.Message:
       example:
@@ -6545,4 +6706,11 @@ components:
       - MsgTimeout
       - MsgTimeoutOnClose
       - MsgAcknowledgement
+x-servers:
+- description: Celenium Mainnet API
+  url: api-mainnet.celenium.io
+- description: Celenium Mocha API
+  url: api-mocha.celenium.io
+- description: Celenium Arabica API
+  url: api-arabica.celenium.io
 x-original-swagger-version: "2.0"

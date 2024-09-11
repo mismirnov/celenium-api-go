@@ -41,6 +41,7 @@ docs/ResponsesGasPrice.md
 docs/ResponsesGrant.md
 docs/ResponsesHistogramItem.md
 docs/ResponsesJail.md
+docs/ResponsesLightBlobLog.md
 docs/ResponsesMessage.md
 docs/ResponsesMessageForAddress.md
 docs/ResponsesNamespace.md
@@ -104,6 +105,7 @@ model_responses_gas_price.go
 model_responses_grant.go
 model_responses_histogram_item.go
 model_responses_jail.go
+model_responses_light_blob_log.go
 model_responses_message.go
 model_responses_message_for_address.go
 model_responses_namespace.go

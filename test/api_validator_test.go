@@ -11,20 +11,20 @@ package celenium
 
 import (
 	"context"
-	celeniumApi "github.com/mismirnov/celenium-api-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func Test_celenium_ValidatorAPIService(t *testing.T) {
 
-	configuration := celeniumApi.NewConfiguration()
-	apiClient := celeniumApi.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test ValidatorAPIService GetValidator", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 
@@ -38,7 +38,7 @@ func Test_celenium_ValidatorAPIService(t *testing.T) {
 
 	t.Run("Test ValidatorAPIService GetValidatorBlocks", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 
@@ -52,7 +52,7 @@ func Test_celenium_ValidatorAPIService(t *testing.T) {
 
 	t.Run("Test ValidatorAPIService GetValidatorUptime", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 
@@ -66,7 +66,7 @@ func Test_celenium_ValidatorAPIService(t *testing.T) {
 
 	t.Run("Test ValidatorAPIService ListValidator", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.ValidatorAPI.ListValidator(context.Background()).Execute()
 
@@ -78,7 +78,7 @@ func Test_celenium_ValidatorAPIService(t *testing.T) {
 
 	t.Run("Test ValidatorAPIService ValidatorCount", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.ValidatorAPI.ValidatorCount(context.Background()).Execute()
 
@@ -90,7 +90,7 @@ func Test_celenium_ValidatorAPIService(t *testing.T) {
 
 	t.Run("Test ValidatorAPIService ValidatorDelegators", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 
@@ -104,7 +104,7 @@ func Test_celenium_ValidatorAPIService(t *testing.T) {
 
 	t.Run("Test ValidatorAPIService ValidatorJails", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id int32
 

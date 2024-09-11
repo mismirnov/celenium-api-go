@@ -11,20 +11,20 @@ package celenium
 
 import (
 	"context"
-	celeniumApi "github.com/mismirnov/celenium-api-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func Test_celenium_NamespaceAPIService(t *testing.T) {
 
-	configuration := celeniumApi.NewConfiguration()
-	apiClient := celeniumApi.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test NamespaceAPIService GetBlob", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.NamespaceAPI.GetBlob(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	t.Run("Test NamespaceAPIService GetBlobLogs", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id string
 		var version int32
@@ -51,7 +51,7 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	t.Run("Test NamespaceAPIService GetBlobMetadata", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.NamespaceAPI.GetBlobMetadata(context.Background()).Execute()
 
@@ -61,9 +61,21 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test NamespaceAPIService GetBlobs", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.NamespaceAPI.GetBlobs(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test NamespaceAPIService GetNamespace", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id string
 
@@ -77,7 +89,7 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	t.Run("Test NamespaceAPIService GetNamespaceActive", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.NamespaceAPI.GetNamespaceActive(context.Background()).Execute()
 
@@ -89,7 +101,7 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	t.Run("Test NamespaceAPIService GetNamespaceBase64", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var hash string
 
@@ -103,7 +115,7 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	t.Run("Test NamespaceAPIService GetNamespaceBlobs", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var hash string
 		var height int32
@@ -118,7 +130,7 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	t.Run("Test NamespaceAPIService GetNamespaceByVersionAndId", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id string
 		var version int32
@@ -133,7 +145,7 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	t.Run("Test NamespaceAPIService GetNamespaceCount", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.NamespaceAPI.GetNamespaceCount(context.Background()).Execute()
 
@@ -145,7 +157,7 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	t.Run("Test NamespaceAPIService GetNamespaceMessages", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id string
 		var version int32
@@ -160,7 +172,7 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	t.Run("Test NamespaceAPIService GetNamespaceRollups", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id string
 		var version int32
@@ -175,7 +187,7 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	t.Run("Test NamespaceAPIService ListNamespace", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.NamespaceAPI.ListNamespace(context.Background()).Execute()
 

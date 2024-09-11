@@ -1,12 +1,13 @@
 # \NamespaceAPI
 
-All URIs are relative to *https://api.celenium.io/v1*
+All URIs are relative to *https://api-mainnet.celenium.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetBlob**](NamespaceAPI.md#GetBlob) | **Post** /blob | Get namespace blob by commitment on height
 [**GetBlobLogs**](NamespaceAPI.md#GetBlobLogs) | **Get** /namespace/{id}/{version}/blobs | Get blob changes for namespace
 [**GetBlobMetadata**](NamespaceAPI.md#GetBlobMetadata) | **Post** /blob/metadata | Get blob metadata by commitment on height
+[**GetBlobs**](NamespaceAPI.md#GetBlobs) | **Get** /blob | List all blobs with filters
 [**GetNamespace**](NamespaceAPI.md#GetNamespace) | **Get** /namespace/{id} | Get namespace info
 [**GetNamespaceActive**](NamespaceAPI.md#GetNamespaceActive) | **Get** /namespace/active | Get last used namespace
 [**GetNamespaceBase64**](NamespaceAPI.md#GetNamespaceBase64) | **Get** /namespace_by_hash/{hash} | Get namespace info by base64
@@ -36,14 +37,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-    celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	commitment := "commitment_example" // string | Blob commitment
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.GetBlob(context.Background()).Commitment(commitment).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetBlob``: %v\n", err)
@@ -87,7 +88,7 @@ No authorization required
 
 ## GetBlobLogs
 
-> []ResponsesBlobLog GetBlobLogs(ctx, id, version).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Commitment(commitment).From(from).To(to).Execute()
+> []ResponsesBlobLog GetBlobLogs(ctx, id, version).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Commitment(commitment).From(from).To(to).Joins(joins).Signers(signers).Cursor(cursor).Execute()
 
 Get blob changes for namespace
 
@@ -102,7 +103,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -115,10 +116,13 @@ func main() {
 	commitment := "commitment_example" // string | Commitment value in URLbase64 format (optional)
 	from := int32(56) // int32 | Time from in unix timestamp (optional)
 	to := int32(56) // int32 | Time to in unix timestamp (optional)
+	joins := true // bool | Flag indicating whether entities of rollup, transaction and signer should be attached or not. Default: true (optional)
+	signers := "signers_example" // string | Comma-separated celestia addresses (optional)
+	cursor := int32(56) // int32 | Last entity id which is used for cursor pagination (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespaceAPI.GetBlobLogs(context.Background(), id, version).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Commitment(commitment).From(from).To(to).Execute()
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NamespaceAPI.GetBlobLogs(context.Background(), id, version).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Commitment(commitment).From(from).To(to).Joins(joins).Signers(signers).Cursor(cursor).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetBlobLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -153,6 +157,9 @@ Name | Type | Description  | Notes
  **commitment** | **string** | Commitment value in URLbase64 format | 
  **from** | **int32** | Time from in unix timestamp | 
  **to** | **int32** | Time to in unix timestamp | 
+ **joins** | **bool** | Flag indicating whether entities of rollup, transaction and signer should be attached or not. Default: true | 
+ **signers** | **string** | Comma-separated celestia addresses | 
+ **cursor** | **int32** | Last entity id which is used for cursor pagination | 
 
 ### Return type
 
@@ -189,14 +196,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	commitment := "commitment_example" // string | Blob commitment
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.GetBlobMetadata(context.Background()).Commitment(commitment).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetBlobMetadata``: %v\n", err)
@@ -238,6 +245,90 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetBlobs
+
+> []ResponsesLightBlobLog GetBlobs(ctx).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Commitment(commitment).From(from).To(to).Signers(signers).Namespaces(namespaces).Cursor(cursor).Execute()
+
+List all blobs with filters
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/mismirnov/celenium-api-go"
+)
+
+func main() {
+	limit := int32(56) // int32 | Count of requested entities (optional)
+	offset := int32(56) // int32 | Offset (optional)
+	sort := "sort_example" // string | Sort order. Default: desc (optional)
+	sortBy := "sortBy_example" // string | Sort field. If it's empty internal id is used (optional)
+	commitment := "commitment_example" // string | Commitment value in URLbase64 format (optional)
+	from := int32(56) // int32 | Time from in unix timestamp (optional)
+	to := int32(56) // int32 | Time to in unix timestamp (optional)
+	signers := "signers_example" // string | Comma-separated celestia addresses (optional)
+	namespaces := "namespaces_example" // string | Comma-separated celestia namespaces (optional)
+	cursor := int32(56) // int32 | Last entity id which is used for cursor pagination (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NamespaceAPI.GetBlobs(context.Background()).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Commitment(commitment).From(from).To(to).Signers(signers).Namespaces(namespaces).Cursor(cursor).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetBlobs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBlobs`: []ResponsesLightBlobLog
+	fmt.Fprintf(os.Stdout, "Response from `NamespaceAPI.GetBlobs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBlobsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int32** | Count of requested entities | 
+ **offset** | **int32** | Offset | 
+ **sort** | **string** | Sort order. Default: desc | 
+ **sortBy** | **string** | Sort field. If it&#39;s empty internal id is used | 
+ **commitment** | **string** | Commitment value in URLbase64 format | 
+ **from** | **int32** | Time from in unix timestamp | 
+ **to** | **int32** | Time to in unix timestamp | 
+ **signers** | **string** | Comma-separated celestia addresses | 
+ **namespaces** | **string** | Comma-separated celestia namespaces | 
+ **cursor** | **int32** | Last entity id which is used for cursor pagination | 
+
+### Return type
+
+[**[]ResponsesLightBlobLog**](ResponsesLightBlobLog.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetNamespace
 
 > []ResponsesNamespace GetNamespace(ctx, id).Execute()
@@ -255,14 +346,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	id := "id_example" // string | Namespace id in hexadecimal
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.GetNamespace(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetNamespace``: %v\n", err)
@@ -325,14 +416,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	sort := "sort_example" // string | Sort field. Default: time (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.GetNamespaceActive(context.Background()).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetNamespaceActive``: %v\n", err)
@@ -391,14 +482,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	hash := "hash_example" // string | Base64-encoded namespace id and version
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.GetNamespaceBase64(context.Background(), hash).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetNamespaceBase64``: %v\n", err)
@@ -461,15 +552,15 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	hash := "hash_example" // string | Base64-encoded namespace id and version
 	height := int32(56) // int32 | Block heigth
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.GetNamespaceBlobs(context.Background(), hash, height).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetNamespaceBlobs``: %v\n", err)
@@ -534,15 +625,15 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	id := "id_example" // string | Namespace id in hexadecimal
 	version := int32(56) // int32 | Version of namespace
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.GetNamespaceByVersionAndId(context.Background(), id, version).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetNamespaceByVersionAndId``: %v\n", err)
@@ -607,13 +698,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.GetNamespaceCount(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetNamespaceCount``: %v\n", err)
@@ -668,7 +759,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -677,8 +768,8 @@ func main() {
 	limit := int32(56) // int32 | Count of requested entities (optional)
 	offset := int32(56) // int32 | Offset (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.GetNamespaceMessages(context.Background(), id, version).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetNamespaceMessages``: %v\n", err)
@@ -745,7 +836,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -754,8 +845,8 @@ func main() {
 	limit := int32(56) // int32 | Count of requested entities (optional)
 	offset := int32(56) // int32 | Offset (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.GetNamespaceRollups(context.Background(), id, version).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetNamespaceRollups``: %v\n", err)
@@ -822,7 +913,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -831,8 +922,8 @@ func main() {
 	sort := "sort_example" // string | Sort order. Default: desc (optional)
 	sortBy := "sortBy_example" // string | Sort field. If it's empty internal id is used (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.NamespaceAPI.ListNamespace(context.Background()).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.ListNamespace``: %v\n", err)

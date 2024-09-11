@@ -31,6 +31,7 @@ type ApiAddressBlobsRequest struct {
 	offset *int32
 	sort *string
 	sortBy *string
+	joins *bool
 }
 
 // Count of requested entities
@@ -54,6 +55,12 @@ func (r ApiAddressBlobsRequest) Sort(sort string) ApiAddressBlobsRequest {
 // Sort field. If it&#39;s empty internal id is used
 func (r ApiAddressBlobsRequest) SortBy(sortBy string) ApiAddressBlobsRequest {
 	r.sortBy = &sortBy
+	return r
+}
+
+// Flag indicating whether entities of transaction and namespace should be attached or not. Default: true
+func (r ApiAddressBlobsRequest) Joins(joins bool) ApiAddressBlobsRequest {
+	r.joins = &joins
 	return r
 }
 
@@ -117,6 +124,9 @@ func (a *AddressAPIService) AddressBlobsExecute(r ApiAddressBlobsRequest) ([]Res
 	}
 	if r.sortBy != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_by", r.sortBy, "", "")
+	}
+	if r.joins != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "joins", r.joins, "", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Commitment** | Pointer to **string** |  | [optional] 
 **ContentType** | Pointer to **string** |  | [optional] 
 **Height** | Pointer to **int32** |  | [optional] 
+**Id** | Pointer to **int32** |  | [optional] 
 **Namespace** | Pointer to [**ResponsesNamespace**](ResponsesNamespace.md) |  | [optional] 
 **Rollup** | Pointer to [**ResponsesShortRollup**](ResponsesShortRollup.md) |  | [optional] 
 **Signer** | Pointer to **string** |  | [optional] 
@@ -107,6 +108,31 @@ SetHeight sets Height field to given value.
 `func (o *ResponsesBlobLog) HasHeight() bool`
 
 HasHeight returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *ResponsesBlobLog) GetId() int32`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ResponsesBlobLog) GetIdOk() (*int32, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ResponsesBlobLog) SetId(v int32)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *ResponsesBlobLog) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetNamespace
 

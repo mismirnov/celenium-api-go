@@ -11,20 +11,20 @@ package celenium
 
 import (
 	"context"
-	celeniumApi "github.com/mismirnov/celenium-api-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func Test_celenium_GeneralAPIService(t *testing.T) {
 
-	configuration := celeniumApi.NewConfiguration()
-	apiClient := celeniumApi.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test GeneralAPIService GetConstants", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.GeneralAPI.GetConstants(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_celenium_GeneralAPIService(t *testing.T) {
 
 	t.Run("Test GeneralAPIService GetEnums", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.GeneralAPI.GetEnums(context.Background()).Execute()
 
@@ -48,7 +48,7 @@ func Test_celenium_GeneralAPIService(t *testing.T) {
 
 	t.Run("Test GeneralAPIService Head", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.GeneralAPI.Head(context.Background()).Execute()
 

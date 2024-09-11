@@ -74,7 +74,7 @@ ctx = context.WithValue(context.Background(), celenium.ContextOperationServerVar
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.celenium.io/v1*
+All URIs are relative to *https://api-mainnet.celenium.io/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -107,6 +107,7 @@ Class | Method | HTTP request | Description
 *NamespaceAPI* | [**GetBlob**](docs/NamespaceAPI.md#getblob) | **Post** /blob | Get namespace blob by commitment on height
 *NamespaceAPI* | [**GetBlobLogs**](docs/NamespaceAPI.md#getbloblogs) | **Get** /namespace/{id}/{version}/blobs | Get blob changes for namespace
 *NamespaceAPI* | [**GetBlobMetadata**](docs/NamespaceAPI.md#getblobmetadata) | **Post** /blob/metadata | Get blob metadata by commitment on height
+*NamespaceAPI* | [**GetBlobs**](docs/NamespaceAPI.md#getblobs) | **Get** /blob | List all blobs with filters
 *NamespaceAPI* | [**GetNamespace**](docs/NamespaceAPI.md#getnamespace) | **Get** /namespace/{id} | Get namespace info
 *NamespaceAPI* | [**GetNamespaceActive**](docs/NamespaceAPI.md#getnamespaceactive) | **Get** /namespace/active | Get last used namespace
 *NamespaceAPI* | [**GetNamespaceBase64**](docs/NamespaceAPI.md#getnamespacebase64) | **Get** /namespace_by_hash/{hash} | Get namespace info by base64
@@ -180,6 +181,7 @@ Class | Method | HTTP request | Description
  - [ResponsesGrant](docs/ResponsesGrant.md)
  - [ResponsesHistogramItem](docs/ResponsesHistogramItem.md)
  - [ResponsesJail](docs/ResponsesJail.md)
+ - [ResponsesLightBlobLog](docs/ResponsesLightBlobLog.md)
  - [ResponsesMessage](docs/ResponsesMessage.md)
  - [ResponsesMessageForAddress](docs/ResponsesMessageForAddress.md)
  - [ResponsesNamespace](docs/ResponsesNamespace.md)

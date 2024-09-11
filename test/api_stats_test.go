@@ -11,20 +11,20 @@ package celenium
 
 import (
 	"context"
-	celeniumApi "github.com/mismirnov/celenium-api-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func Test_celenium_StatsAPIService(t *testing.T) {
 
-	configuration := celeniumApi.NewConfiguration()
-	apiClient := celeniumApi.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test StatsAPIService Stats24hChanges", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.StatsAPI.Stats24hChanges(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsMessagesCount24h", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.StatsAPI.StatsMessagesCount24h(context.Background()).Execute()
 
@@ -48,7 +48,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsNamespaceUsage", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.StatsAPI.StatsNamespaceUsage(context.Background()).Execute()
 
@@ -60,7 +60,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsNsSeries", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id string
 		var timeframe string
@@ -76,7 +76,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsPriceCurrent", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.StatsAPI.StatsPriceCurrent(context.Background()).Execute()
 
@@ -88,7 +88,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsPriceSeries", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var timeframe string
 
@@ -102,7 +102,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsRollup24h", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.StatsAPI.StatsRollup24h(context.Background()).Execute()
 
@@ -114,7 +114,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsSeries", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var timeframe string
 		var name string
@@ -129,7 +129,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsSeriesCumulative", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var timeframe string
 		var name string
@@ -144,7 +144,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsSquareSize", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.StatsAPI.StatsSquareSize(context.Background()).Execute()
 
@@ -156,7 +156,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsStakingSeries", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var id string
 		var timeframe string
@@ -172,7 +172,7 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	t.Run("Test StatsAPIService StatsSummary", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var table string
 		var function string

@@ -1,6 +1,6 @@
 # \BlockAPI
 
-All URIs are relative to *https://api.celenium.io/v1*
+All URIs are relative to *https://api-mainnet.celenium.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -32,14 +32,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	height := int32(56) // int32 | Block height
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.BlockAPI.BlockBlobsCount(context.Background(), height).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlockAPI.BlockBlobsCount``: %v\n", err)
@@ -102,15 +102,15 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	height := int32(56) // int32 | Block height
 	stats := true // bool | Need join stats for block (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.BlockAPI.GetBlock(context.Background(), height).Stats(stats).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlockAPI.GetBlock``: %v\n", err)
@@ -174,7 +174,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -184,8 +184,8 @@ func main() {
 	sort := "sort_example" // string | Sort order. Default: desc (optional)
 	sortBy := "sortBy_example" // string | Sort field. If it's empty internal id is used (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.BlockAPI.GetBlockBlobs(context.Background(), height).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlockAPI.GetBlockBlobs``: %v\n", err)
@@ -252,13 +252,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.BlockAPI.GetBlockCount(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlockAPI.GetBlockCount``: %v\n", err)
@@ -313,7 +313,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -321,8 +321,8 @@ func main() {
 	limit := int32(56) // int32 | Count of requested entities (optional)
 	offset := int32(56) // int32 | Offset (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.BlockAPI.GetBlockEvents(context.Background(), height).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlockAPI.GetBlockEvents``: %v\n", err)
@@ -387,7 +387,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -397,8 +397,8 @@ func main() {
 	msgType := "msgType_example" // string | Comma-separated message types list (optional)
 	excludedMsgType := "excludedMsgType_example" // string | Comma-separated message types which should be excluded from list (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.BlockAPI.GetBlockMessages(context.Background(), height).Limit(limit).Offset(offset).MsgType(msgType).ExcludedMsgType(excludedMsgType).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlockAPI.GetBlockMessages``: %v\n", err)
@@ -465,14 +465,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	height := int32(56) // int32 | Block height
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.BlockAPI.GetBlockStats(context.Background(), height).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlockAPI.GetBlockStats``: %v\n", err)
@@ -535,7 +535,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -544,8 +544,8 @@ func main() {
 	sort := "sort_example" // string | Sort order (optional)
 	stats := true // bool | Need join stats for block (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.BlockAPI.ListBlock(context.Background()).Limit(limit).Offset(offset).Sort(sort).Stats(stats).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlockAPI.ListBlock``: %v\n", err)

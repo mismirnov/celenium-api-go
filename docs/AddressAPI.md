@@ -1,6 +1,6 @@
 # \AddressAPI
 
-All URIs are relative to *https://api.celenium.io/v1*
+All URIs are relative to *https://api-mainnet.celenium.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 ## AddressBlobs
 
-> []ResponsesBlobLog AddressBlobs(ctx, hash).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Execute()
+> []ResponsesBlobLog AddressBlobs(ctx, hash).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Joins(joins).Execute()
 
 Get blobs pushed by address
 
@@ -37,7 +37,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -46,10 +46,11 @@ func main() {
 	offset := int32(56) // int32 | Offset (optional)
 	sort := "sort_example" // string | Sort order. Default: desc (optional)
 	sortBy := "sortBy_example" // string | Sort field. If it's empty internal id is used (optional)
+	joins := true // bool | Flag indicating whether entities of transaction and namespace should be attached or not. Default: true (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
-	resp, r, err := apiClient.AddressAPI.AddressBlobs(context.Background(), hash).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Execute()
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AddressAPI.AddressBlobs(context.Background(), hash).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Joins(joins).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.AddressBlobs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -79,6 +80,7 @@ Name | Type | Description  | Notes
  **offset** | **int32** | Offset | 
  **sort** | **string** | Sort order. Default: desc | 
  **sortBy** | **string** | Sort field. If it&#39;s empty internal id is used | 
+ **joins** | **bool** | Flag indicating whether entities of transaction and namespace should be attached or not. Default: true | 
 
 ### Return type
 
@@ -115,7 +117,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -124,8 +126,8 @@ func main() {
 	offset := int32(56) // int32 | Offset (optional)
 	showZero := true // bool | Show zero delegations (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.AddressDelegations(context.Background(), hash).Limit(limit).Offset(offset).ShowZero(showZero).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.AddressDelegations``: %v\n", err)
@@ -191,7 +193,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -199,8 +201,8 @@ func main() {
 	limit := int32(56) // int32 | Count of requested entities (optional)
 	offset := int32(56) // int32 | Offset (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.AddressGrantee(context.Background(), hash).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.AddressGrantee``: %v\n", err)
@@ -265,7 +267,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -273,8 +275,8 @@ func main() {
 	limit := int32(56) // int32 | Count of requested entities (optional)
 	offset := int32(56) // int32 | Offset (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.AddressGrants(context.Background(), hash).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.AddressGrants``: %v\n", err)
@@ -339,7 +341,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -349,8 +351,8 @@ func main() {
 	sort := "sort_example" // string | Sort order (optional)
 	msgType := "msgType_example" // string | Comma-separated message types list (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.AddressMessages(context.Background(), hash).Limit(limit).Offset(offset).Sort(sort).MsgType(msgType).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.AddressMessages``: %v\n", err)
@@ -417,7 +419,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -425,8 +427,8 @@ func main() {
 	limit := int32(56) // int32 | Count of requested entities (optional)
 	offset := int32(56) // int32 | Offset (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.AddressRedelegations(context.Background(), hash).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.AddressRedelegations``: %v\n", err)
@@ -491,7 +493,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -501,8 +503,8 @@ func main() {
 	from := int32(56) // int32 | Time from in unix timestamp (optional)
 	to := int32(56) // int32 | Time to in unix timestamp (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.AddressStats(context.Background(), hash, name, timeframe).From(from).To(to).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.AddressStats``: %v\n", err)
@@ -571,7 +573,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -585,8 +587,8 @@ func main() {
 	to := int32(56) // int32 | Time to in unix timestamp (optional)
 	height := int32(56) // int32 | Block number (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.AddressTransactions(context.Background(), hash).Limit(limit).Offset(offset).Sort(sort).Status(status).MsgType(msgType).From(from).To(to).Height(height).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.AddressTransactions``: %v\n", err)
@@ -657,7 +659,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -665,8 +667,8 @@ func main() {
 	limit := int32(56) // int32 | Count of requested entities (optional)
 	offset := int32(56) // int32 | Offset (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.AddressUndelegations(context.Background(), hash).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.AddressUndelegations``: %v\n", err)
@@ -731,7 +733,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -740,8 +742,8 @@ func main() {
 	offset := int32(56) // int32 | Offset (optional)
 	showEnded := true // bool | Show finished vestings delegations (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.AddressVesting(context.Background(), hash).Limit(limit).Offset(offset).ShowEnded(showEnded).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.AddressVesting``: %v\n", err)
@@ -807,14 +809,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 	hash := "hash_example" // string | Hash
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.GetAddress(context.Background(), hash).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.GetAddress``: %v\n", err)
@@ -877,13 +879,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.GetAddressCount(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.GetAddressCount``: %v\n", err)
@@ -938,7 +940,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	celenium "github.com/mismirnov/celenium-api-go"
+	openapiclient "github.com/mismirnov/celenium-api-go"
 )
 
 func main() {
@@ -947,8 +949,8 @@ func main() {
 	sort := "sort_example" // string | Sort order (optional)
 	sortBy := "sortBy_example" // string | Sort field (optional)
 
-	configuration := celenium.NewConfiguration()
-	apiClient := celenium.NewAPIClient(configuration)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
 	resp, r, err := apiClient.AddressAPI.ListAddress(context.Background()).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressAPI.ListAddress``: %v\n", err)

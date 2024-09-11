@@ -7,6 +7,13 @@ on:
 jobs:
   triggered_job:
     
+    docker run --rm \
+    -v "${PWD}/Projects:/local" openapitools/openapi-generator-cli generate \
+    -i https://raw.githubusercontent.com/celenium-io/celestia-indexer/v1.10.1/cmd/api/docs/swagger.json \
+    -g go \
+    -p packageName=celenium --skip-validate-spec \
+    -o /local/mismirnov/celenium-api-go --git-repo-id celenium-api-go --git-user-id mismirnov
+    
     runs-on: ubuntu-latest
     
     permissions:
@@ -17,8 +24,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Cleanup old client
-        run: rm -rf celenium-api-go/
+      - name: Delete all files except .github/workflows and LICENSE
+        run: |
+          find . -mindepth 1 \
+            ! -name '.git' \
+            ! -path './.github/workflows*' \
+            ! -name 'LICENSE' \
+            -exec rm -rf {} +
 
       - name: Generate API client
         run: |
@@ -26,7 +38,7 @@ jobs:
             -v ${{ github.workspace }}:/local openapitools/openapi-generator-cli generate \
             -i https://raw.githubusercontent.com/mismirnov/celestia-indexer/${{ github.event.client_payload.tag }}/cmd/api/docs/swagger.json \
             -g go \
-            -o /local/celenium-api-go \
+            -o /local \
             -p packageName=celenium --skip-validate-spec
           
       - name: Configure Git

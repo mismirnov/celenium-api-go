@@ -6,6 +6,7 @@ on:
 
 jobs:
   generate_api_job:
+    name: Generate API & GitHub push
     runs-on: ubuntu-latest
     
     permissions:
@@ -55,10 +56,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up environment
+        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
+
       - name: Publish GitHub Release
         uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
           repo_token: ${{ secrets.PAT }}
-          automatic_release_tag: 'latest'
           prerelease: false
-          title: ${{ github.event.client_payload.tag }}

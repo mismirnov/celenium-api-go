@@ -45,9 +45,8 @@ jobs:
           git push https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}.git
           
       - name: Publish GitHub Release
-        uses: marvinpinto/action-automatic-releases@latest
+        uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
           repo_token: ${{ secrets.PAT }}
-          automatic_release_tag: ${{ github.event.client_payload.tag }}
           prerelease: false
-          title: 'Release ${{ github.event.client_payload.tag }}'
+          title: ${{ github.event.client_payload.tag }}

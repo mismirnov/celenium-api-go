@@ -56,11 +56,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up environment
-        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
-
       - name: Publish GitHub Release
-        uses: marvinpinto/action-automatic-releases@v1.2.1
+        uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.PAT }}
           prerelease: false

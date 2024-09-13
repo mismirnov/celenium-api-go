@@ -43,10 +43,22 @@ jobs:
           git add .
           git commit -m "${{ github.event.client_payload.tag }}"
           git push https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}.git
-          
+                 
+  release:
+    name: Release
+    needs: generate_api_job
+    runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Publish GitHub Release
         uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
           repo_token: ${{ secrets.PAT }}
+          automatic_release_tag: 'latest'
           prerelease: false
           title: ${{ github.event.client_payload.tag }}

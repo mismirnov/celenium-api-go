@@ -6837,7 +6837,7 @@ components:
         yes_voting_power: "1000000000"
         abstain: 1234
         no_with_veto_addrs: 1234
-        changes: changes
+        changes: "{}"
         created_at: 2023-07-04T03:10:57Z
         description: Some proposal description
         title: Proposal title
@@ -6888,8 +6888,8 @@ components:
           format: date-time
           type: string
         changes:
-          format: json
-          type: string
+          properties: {}
+          type: object
         created_at:
           example: 2023-07-04T03:10:57Z
           format: date-time

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **AbstainVals** | Pointer to **int32** |  | [optional] 
 **AbstainVotingPower** | Pointer to **string** |  | [optional] 
 **ActivationTime** | Pointer to **time.Time** |  | [optional] 
-**Changes** | Pointer to **[]int32** |  | [optional] 
+**Changes** | Pointer to **map[string]interface{}** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **Deposit** | Pointer to **string** |  | [optional] 
 **DepositTime** | Pointer to **time.Time** |  | [optional] 
@@ -182,20 +182,20 @@ HasActivationTime returns a boolean if a field has been set.
 
 ### GetChanges
 
-`func (o *ResponsesProposal) GetChanges() []int32`
+`func (o *ResponsesProposal) GetChanges() map[string]interface{}`
 
 GetChanges returns the Changes field if non-nil, zero value otherwise.
 
 ### GetChangesOk
 
-`func (o *ResponsesProposal) GetChangesOk() (*[]int32, bool)`
+`func (o *ResponsesProposal) GetChangesOk() (*map[string]interface{}, bool)`
 
 GetChangesOk returns a tuple with the Changes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChanges
 
-`func (o *ResponsesProposal) SetChanges(v []int32)`
+`func (o *ResponsesProposal) SetChanges(v map[string]interface{})`
 
 SetChanges sets Changes field to given value.
 

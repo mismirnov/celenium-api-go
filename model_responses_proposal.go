@@ -26,7 +26,7 @@ type ResponsesProposal struct {
 	AbstainVals *int32 `json:"abstain_vals,omitempty"`
 	AbstainVotingPower *string `json:"abstain_voting_power,omitempty"`
 	ActivationTime *time.Time `json:"activation_time,omitempty"`
-	Changes []int32 `json:"changes,omitempty"`
+	Changes map[string]interface{} `json:"changes,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	Deposit *string `json:"deposit,omitempty"`
 	DepositTime *time.Time `json:"deposit_time,omitempty"`
@@ -232,9 +232,9 @@ func (o *ResponsesProposal) SetActivationTime(v time.Time) {
 }
 
 // GetChanges returns the Changes field value if set, zero value otherwise.
-func (o *ResponsesProposal) GetChanges() []int32 {
+func (o *ResponsesProposal) GetChanges() map[string]interface{} {
 	if o == nil || IsNil(o.Changes) {
-		var ret []int32
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Changes
@@ -242,9 +242,9 @@ func (o *ResponsesProposal) GetChanges() []int32 {
 
 // GetChangesOk returns a tuple with the Changes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponsesProposal) GetChangesOk() ([]int32, bool) {
+func (o *ResponsesProposal) GetChangesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Changes) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Changes, true
 }
@@ -258,8 +258,8 @@ func (o *ResponsesProposal) HasChanges() bool {
 	return false
 }
 
-// SetChanges gets a reference to the given []int32 and assigns it to the Changes field.
-func (o *ResponsesProposal) SetChanges(v []int32) {
+// SetChanges gets a reference to the given map[string]interface{} and assigns it to the Changes field.
+func (o *ResponsesProposal) SetChanges(v map[string]interface{}) {
 	o.Changes = v
 }
 

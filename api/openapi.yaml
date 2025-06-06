@@ -5304,6 +5304,7 @@ components:
           name: name
           primary: true
           status: VERIFIED
+        name: bonded_tokens_pool
         id: 321
         first_height: 100
         hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
@@ -5325,6 +5326,9 @@ components:
         last_height:
           example: 100
           type: integer
+        name:
+          example: bonded_tokens_pool
+          type: string
       type: object
     responses.Balance:
       description: Balance of address information
@@ -6833,9 +6837,7 @@ components:
         yes_voting_power: "1000000000"
         abstain: 1234
         no_with_veto_addrs: 1234
-        changes:
-        - 0
-        - 0
+        changes: "{}"
         created_at: 2023-07-04T03:10:57Z
         description: Some proposal description
         title: Proposal title
@@ -6886,9 +6888,8 @@ components:
           format: date-time
           type: string
         changes:
-          items:
-            type: integer
-          type: array
+          properties: {}
+          type: object
         created_at:
           example: 2023-07-04T03:10:57Z
           format: date-time

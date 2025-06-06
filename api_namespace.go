@@ -27,12 +27,12 @@ type NamespaceAPIService service
 type ApiGetBlobRequest struct {
 	ctx context.Context
 	ApiService *NamespaceAPIService
-	commitment *string
+	request *HandlerPostBlobRequest
 }
 
-// Blob commitment
-func (r ApiGetBlobRequest) Commitment(commitment string) ApiGetBlobRequest {
-	r.commitment = &commitment
+// Request body containing height, commitment and namespace hash
+func (r ApiGetBlobRequest) Request(request HandlerPostBlobRequest) ApiGetBlobRequest {
+	r.request = &request
 	return r
 }
 
@@ -43,7 +43,7 @@ func (r ApiGetBlobRequest) Execute() (*ResponsesBlob, *http.Response, error) {
 /*
 GetBlob Get namespace blob by commitment on height
 
-Returns blob
+Returns blob.
 To authorize your requests you have to select the required tariff on our site. Then you receive api key to authorize. Api key should be passed via request header `apikey`.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -76,8 +76,8 @@ func (a *NamespaceAPIService) GetBlobExecute(r ApiGetBlobRequest) (*ResponsesBlo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.commitment == nil {
-		return localVarReturnValue, nil, reportError("commitment is required and must be specified")
+	if r.request == nil {
+		return localVarReturnValue, nil, reportError("request is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -98,7 +98,7 @@ func (a *NamespaceAPIService) GetBlobExecute(r ApiGetBlobRequest) (*ResponsesBlo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.commitment
+	localVarPostBody = r.request
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -383,12 +383,12 @@ func (a *NamespaceAPIService) GetBlobLogsExecute(r ApiGetBlobLogsRequest) ([]Res
 type ApiGetBlobMetadataRequest struct {
 	ctx context.Context
 	ApiService *NamespaceAPIService
-	commitment *string
+	request *HandlerPostBlobRequest
 }
 
-// Blob commitment
-func (r ApiGetBlobMetadataRequest) Commitment(commitment string) ApiGetBlobMetadataRequest {
-	r.commitment = &commitment
+// Request body containing height, commitment and namespace hash
+func (r ApiGetBlobMetadataRequest) Request(request HandlerPostBlobRequest) ApiGetBlobMetadataRequest {
+	r.request = &request
 	return r
 }
 
@@ -400,6 +400,7 @@ func (r ApiGetBlobMetadataRequest) Execute() (*ResponsesBlobLog, *http.Response,
 GetBlobMetadata Get blob metadata by commitment on height
 
 Returns blob metadata
+To authorize your requests you have to select the required tariff on our site. Then you receive api key to authorize. Api key should be passed via request header `apikey`.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetBlobMetadataRequest
@@ -431,8 +432,8 @@ func (a *NamespaceAPIService) GetBlobMetadataExecute(r ApiGetBlobMetadataRequest
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.commitment == nil {
-		return localVarReturnValue, nil, reportError("commitment is required and must be specified")
+	if r.request == nil {
+		return localVarReturnValue, nil, reportError("request is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -453,7 +454,128 @@ func (a *NamespaceAPIService) GetBlobMetadataExecute(r ApiGetBlobMetadataRequest
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.commitment
+	localVarPostBody = r.request
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v HandlerError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetBlobProofRequest struct {
+	ctx context.Context
+	ApiService *NamespaceAPIService
+	request *HandlerPostBlobRequest
+}
+
+// Request body containing height, commitment and namespace hash
+func (r ApiGetBlobProofRequest) Request(request HandlerPostBlobRequest) ApiGetBlobProofRequest {
+	r.request = &request
+	return r
+}
+
+func (r ApiGetBlobProofRequest) Execute() (*ResponsesBlobLog, *http.Response, error) {
+	return r.ApiService.GetBlobProofExecute(r)
+}
+
+/*
+GetBlobProof Get blob inclusion proofs
+
+Returns blob inclusion proofs
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetBlobProofRequest
+*/
+func (a *NamespaceAPIService) GetBlobProof(ctx context.Context) ApiGetBlobProofRequest {
+	return ApiGetBlobProofRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ResponsesBlobLog
+func (a *NamespaceAPIService) GetBlobProofExecute(r ApiGetBlobProofRequest) (*ResponsesBlobLog, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponsesBlobLog
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespaceAPIService.GetBlobProof")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/blob/proofs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.request == nil {
+		return localVarReturnValue, nil, reportError("request is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.request
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -840,125 +962,6 @@ func (a *NamespaceAPIService) GetNamespaceExecute(r ApiGetNamespaceRequest) ([]R
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetNamespaceActiveRequest struct {
-	ctx context.Context
-	ApiService *NamespaceAPIService
-	sort *string
-}
-
-// Sort field. Default: time
-func (r ApiGetNamespaceActiveRequest) Sort(sort string) ApiGetNamespaceActiveRequest {
-	r.sort = &sort
-	return r
-}
-
-func (r ApiGetNamespaceActiveRequest) Execute() ([]ResponsesNamespace, *http.Response, error) {
-	return r.ApiService.GetNamespaceActiveExecute(r)
-}
-
-/*
-GetNamespaceActive Get last used namespace
-
-Get last used namespace
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetNamespaceActiveRequest
-*/
-func (a *NamespaceAPIService) GetNamespaceActive(ctx context.Context) ApiGetNamespaceActiveRequest {
-	return ApiGetNamespaceActiveRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return []ResponsesNamespace
-func (a *NamespaceAPIService) GetNamespaceActiveExecute(r ApiGetNamespaceActiveRequest) ([]ResponsesNamespace, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ResponsesNamespace
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespaceAPIService.GetNamespaceActive")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/namespace/active"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v HandlerError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetNamespaceBase64Request struct {
 	ctx context.Context
 	ApiService *NamespaceAPIService
@@ -1311,115 +1314,6 @@ func (a *NamespaceAPIService) GetNamespaceByVersionAndIdExecute(r ApiGetNamespac
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v HandlerError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetNamespaceCountRequest struct {
-	ctx context.Context
-	ApiService *NamespaceAPIService
-}
-
-func (r ApiGetNamespaceCountRequest) Execute() (int32, *http.Response, error) {
-	return r.ApiService.GetNamespaceCountExecute(r)
-}
-
-/*
-GetNamespaceCount Get count of namespaces in network
-
-Get count of namespaces in network
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetNamespaceCountRequest
-*/
-func (a *NamespaceAPIService) GetNamespaceCount(ctx context.Context) ApiGetNamespaceCountRequest {
-	return ApiGetNamespaceCountRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return int32
-func (a *NamespaceAPIService) GetNamespaceCountExecute(r ApiGetNamespaceCountRequest) (int32, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  int32
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespaceAPIService.GetNamespaceCount")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/namespace/count"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v HandlerError

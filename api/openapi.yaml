@@ -61,20 +61,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Address'
+                  $ref: "#/components/schemas/responses.Address"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List address info
       tags:
@@ -94,7 +94,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get count of addresses in network
       tags:
@@ -117,7 +117,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Address'
+                $ref: "#/components/schemas/responses.Address"
           description: OK
         "204":
           content: {}
@@ -126,13 +126,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get address info
       tags:
@@ -191,22 +191,72 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.BlobLog'
+                  $ref: "#/components/schemas/responses.BlobLog"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get blobs pushed by address
+      tags:
+      - address
+  /address/{hash}/celestials:
+    get:
+      description: Get list of celestial id for address
+      operationId: address-celestials
+      parameters:
+      - description: Hash
+        in: path
+        name: hash
+        required: true
+        schema:
+          maxLength: 47
+          minLength: 47
+          type: string
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.Celestial"
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get list of celestial id for address
       tags:
       - address
   /address/{hash}/delegations:
@@ -246,20 +296,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Delegation'
+                  $ref: "#/components/schemas/responses.Delegation"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get delegations made by address
       tags:
@@ -296,20 +346,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Grant'
+                  $ref: "#/components/schemas/responses.Grant"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get grants where address is grantee
       tags:
@@ -346,20 +396,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Grant'
+                  $ref: "#/components/schemas/responses.Grant"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get grants made by address
       tags:
@@ -463,6 +513,9 @@ paths:
           - MsgUpdateClient
           - MsgUpgradeClient
           - MsgSubmitMisbehaviour
+          - MsgRecoverClient
+          - MsgIBCSoftwareUpgrade
+          - MsgUpdateParams
           - MsgConnectionOpenInit
           - MsgConnectionOpenTry
           - MsgConnectionOpenAck
@@ -477,6 +530,18 @@ paths:
           - MsgTimeout
           - MsgTimeoutOnClose
           - MsgAcknowledgement
+          - MsgSignalVersion
+          - MsgTryUpgrade
+          - MsgCreateMailbox
+          - MsgProcessMessage
+          - MsgSetMailbox
+          - MsgCreateCollateralToken
+          - MsgCreateSyntheticToken
+          - MsgSetToken
+          - MsgEnrollRemoteRouter
+          - MsgUnrollRemoteRouter
+          - MsgRemoteTransfer
+          - MsgUpdateMinfeeParams
           type: string
       responses:
         "200":
@@ -484,20 +549,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.MessageForAddress'
+                  $ref: "#/components/schemas/responses.MessageForAddress"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get address messages
       tags:
@@ -534,20 +599,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Redelegation'
+                  $ref: "#/components/schemas/responses.Redelegation"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get redelegations made by address
       tags:
@@ -602,20 +667,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.HistogramItem'
+                  $ref: "#/components/schemas/responses.HistogramItem"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get address stats
       tags:
@@ -727,6 +792,9 @@ paths:
           - MsgUpdateClient
           - MsgUpgradeClient
           - MsgSubmitMisbehaviour
+          - MsgRecoverClient
+          - MsgIBCSoftwareUpgrade
+          - MsgUpdateParams
           - MsgConnectionOpenInit
           - MsgConnectionOpenTry
           - MsgConnectionOpenAck
@@ -741,6 +809,18 @@ paths:
           - MsgTimeout
           - MsgTimeoutOnClose
           - MsgAcknowledgement
+          - MsgSignalVersion
+          - MsgTryUpgrade
+          - MsgCreateMailbox
+          - MsgProcessMessage
+          - MsgSetMailbox
+          - MsgCreateCollateralToken
+          - MsgCreateSyntheticToken
+          - MsgSetToken
+          - MsgEnrollRemoteRouter
+          - MsgUnrollRemoteRouter
+          - MsgRemoteTransfer
+          - MsgUpdateMinfeeParams
           type: string
       - description: Time from in unix timestamp
         in: query
@@ -766,20 +846,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Tx'
+                  $ref: "#/components/schemas/responses.Tx"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get address transactions
       tags:
@@ -816,20 +896,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Undelegation'
+                  $ref: "#/components/schemas/responses.Undelegation"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get undelegations made by address
       tags:
@@ -871,22 +951,72 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Vesting'
+                  $ref: "#/components/schemas/responses.Vesting"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get vesting for address
+      tags:
+      - address
+  /address/{hash}/votes:
+    get:
+      description: Get list of votes for address
+      operationId: address-votes
+      parameters:
+      - description: Hash
+        in: path
+        name: hash
+        required: true
+        schema:
+          maxLength: 47
+          minLength: 47
+          type: string
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.Vote"
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get list of votes for address
       tags:
       - address
   /blob:
@@ -957,75 +1087,105 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.LightBlobLog'
+                  $ref: "#/components/schemas/responses.LightBlobLog"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
       summary: List all blobs with filters
       tags:
       - namespace
     post:
       description: |-
-        Returns blob
+        Returns blob.
         To authorize your requests you have to select the required tariff on our site. Then you receive api key to authorize. Api key should be passed via request header `apikey`.
       operationId: get-blob
       requestBody:
         content:
           application/json:
             schema:
-              type: string
-        description: Blob commitment
+              $ref: "#/components/schemas/handler.postBlobRequest"
+        description: "Request body containing height, commitment and namespace hash"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Blob'
+                $ref: "#/components/schemas/responses.Blob"
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
       summary: Get namespace blob by commitment on height
       tags:
       - namespace
-      x-codegen-request-body-name: commitment
+      x-codegen-request-body-name: request
   /blob/metadata:
     post:
-      description: Returns blob metadata
+      description: |-
+        Returns blob metadata
+        To authorize your requests you have to select the required tariff on our site. Then you receive api key to authorize. Api key should be passed via request header `apikey`.
       operationId: get-blob-metadata
       requestBody:
         content:
           application/json:
             schema:
-              type: string
-        description: Blob commitment
+              $ref: "#/components/schemas/handler.postBlobRequest"
+        description: "Request body containing height, commitment and namespace hash"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.BlobLog'
+                $ref: "#/components/schemas/responses.BlobLog"
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
       summary: Get blob metadata by commitment on height
       tags:
       - namespace
-      x-codegen-request-body-name: commitment
+      x-codegen-request-body-name: request
+  /blob/proofs:
+    get:
+      description: Returns blob inclusion proofs
+      operationId: get-blob-proof
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/handler.postBlobRequest"
+        description: "Request body containing height, commitment and namespace hash"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses.BlobLog"
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+      summary: Get blob inclusion proofs
+      tags:
+      - namespace
+      x-codegen-request-body-name: request
   /block:
     get:
       description: List blocks info
@@ -1061,20 +1221,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Block'
+                  $ref: "#/components/schemas/responses.Block"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List blocks info
       tags:
@@ -1094,7 +1254,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get count of blocks in network
       tags:
@@ -1121,7 +1281,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Block'
+                $ref: "#/components/schemas/responses.Block"
           description: OK
         "204":
           content: {}
@@ -1130,13 +1290,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get block info
       tags:
@@ -1186,20 +1346,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.BlobLog'
+                  $ref: "#/components/schemas/responses.BlobLog"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List blobs which was pushed in the block
       tags:
@@ -1227,13 +1387,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Count of blobs which was pushed by transaction
       tags:
@@ -1267,20 +1427,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Event'
+                  $ref: "#/components/schemas/responses.Event"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get events from begin and end of block
       tags:
@@ -1373,6 +1533,9 @@ paths:
           - MsgUpdateClient
           - MsgUpgradeClient
           - MsgSubmitMisbehaviour
+          - MsgRecoverClient
+          - MsgIBCSoftwareUpgrade
+          - MsgUpdateParams
           - MsgConnectionOpenInit
           - MsgConnectionOpenTry
           - MsgConnectionOpenAck
@@ -1387,6 +1550,18 @@ paths:
           - MsgTimeout
           - MsgTimeoutOnClose
           - MsgAcknowledgement
+          - MsgSignalVersion
+          - MsgTryUpgrade
+          - MsgCreateMailbox
+          - MsgProcessMessage
+          - MsgSetMailbox
+          - MsgCreateCollateralToken
+          - MsgCreateSyntheticToken
+          - MsgSetToken
+          - MsgEnrollRemoteRouter
+          - MsgUnrollRemoteRouter
+          - MsgRemoteTransfer
+          - MsgUpdateMinfeeParams
           type: string
       - description: Comma-separated message types which should be excluded from list
         in: query
@@ -1453,6 +1628,9 @@ paths:
           - MsgUpdateClient
           - MsgUpgradeClient
           - MsgSubmitMisbehaviour
+          - MsgRecoverClient
+          - MsgIBCSoftwareUpgrade
+          - MsgUpdateParams
           - MsgConnectionOpenInit
           - MsgConnectionOpenTry
           - MsgConnectionOpenAck
@@ -1467,6 +1645,18 @@ paths:
           - MsgTimeout
           - MsgTimeoutOnClose
           - MsgAcknowledgement
+          - MsgSignalVersion
+          - MsgTryUpgrade
+          - MsgCreateMailbox
+          - MsgProcessMessage
+          - MsgSetMailbox
+          - MsgCreateCollateralToken
+          - MsgCreateSyntheticToken
+          - MsgSetToken
+          - MsgEnrollRemoteRouter
+          - MsgUnrollRemoteRouter
+          - MsgRemoteTransfer
+          - MsgUpdateMinfeeParams
           type: string
       responses:
         "200":
@@ -1474,20 +1664,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Message'
+                  $ref: "#/components/schemas/responses.Message"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get messages contained in the block
       tags:
@@ -1509,19 +1699,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.ODS'
+                $ref: "#/components/schemas/responses.ODS"
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: ODS for block
       tags:
@@ -1544,19 +1734,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.BlockStats'
+                $ref: "#/components/schemas/responses.BlockStats"
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get block stats by height
       tags:
@@ -1570,7 +1760,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Constants'
+                $ref: "#/components/schemas/responses.Constants"
           description: OK
         "204":
           content: {}
@@ -1579,7 +1769,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get network constants
       tags:
@@ -1593,7 +1783,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Enums'
+                $ref: "#/components/schemas/responses.Enums"
           description: OK
       summary: Get celenium enumerators
       tags:
@@ -1621,13 +1811,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get estimated gas for pay for blob
       tags:
@@ -1641,9 +1831,35 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.GasPrice'
+                $ref: "#/components/schemas/responses.GasPrice"
           description: OK
       summary: Get estimated gas price
+      tags:
+      - gas
+  /gas/price/{priority}:
+    get:
+      description: Get estimated gas price with priority filter based on historical
+        data
+      operationId: gas-price-priority
+      parameters:
+      - description: Priority
+        in: path
+        name: priority
+        required: true
+        schema:
+          enum:
+          - slow
+          - median
+          - fast
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: OK
+      summary: Get estimated gas price with priority filter
       tags:
       - gas
   /head:
@@ -1655,7 +1871,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.State'
+                $ref: "#/components/schemas/responses.State"
           description: OK
         "204":
           content: {}
@@ -1664,17 +1880,372 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get current indexer head
       tags:
       - general
+  /ibc/channel:
+    get:
+      description: Get ibc channels info
+      operationId: get-ibc-channels
+      parameters:
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: "Sort order. Default: desc"
+        in: query
+        name: sort
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Client id
+        in: query
+        name: client_id
+        schema:
+          type: string
+      - description: Connection id
+        in: query
+        name: connection_id
+        schema:
+          type: string
+      - description: Channel status
+        in: query
+        name: status
+        schema:
+          enum:
+          - initialization
+          - opened
+          - closed
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.IbcChannel"
+                type: array
+          description: OK
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get ibc channels info
+      tags:
+      - ibc
+  /ibc/channel/{id}:
+    get:
+      description: Get ibc channel info
+      operationId: get-ibc-channel
+      parameters:
+      - description: IBC channel id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses.IbcChannel"
+          description: OK
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get ibc channel info
+      tags:
+      - ibc
+  /ibc/client:
+    get:
+      description: Get ibc clients info
+      operationId: get-ibc-clients
+      parameters:
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: "Sort order. Default: desc"
+        in: query
+        name: sort
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.IbcClient"
+                type: array
+          description: OK
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get ibc clients info
+      tags:
+      - ibc
+  /ibc/client/{id}:
+    get:
+      description: Get ibc client info
+      operationId: get-ibc-client
+      parameters:
+      - description: IBC client id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses.IbcClient"
+          description: OK
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get ibc client info
+      tags:
+      - ibc
+  /ibc/connection:
+    get:
+      description: Get ibc connections info
+      operationId: get-ibc-conns
+      parameters:
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: "Sort order. Default: desc"
+        in: query
+        name: sort
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Client id
+        in: query
+        name: client_id
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.IbcConnection"
+                type: array
+          description: OK
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get ibc connections info
+      tags:
+      - ibc
+  /ibc/connection/{id}:
+    get:
+      description: Get ibc client info
+      operationId: get-ibc-conn
+      parameters:
+      - description: IBC connection id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses.IbcConnection"
+          description: OK
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get ibc connection info
+      tags:
+      - ibc
+  /ibc/transfer:
+    get:
+      description: Get ibc transfers info
+      operationId: get-ibc-transfers
+      parameters:
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: "Sort order. Default: desc"
+        in: query
+        name: sort
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Client id
+        in: query
+        name: client_id
+        schema:
+          type: string
+      - description: Connection id
+        in: query
+        name: connection_id
+        schema:
+          type: string
+      - description: Channel status
+        in: query
+        name: status
+        schema:
+          enum:
+          - initialization
+          - opened
+          - closed
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.IbcTransfer"
+                type: array
+          description: OK
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get ibc transfers info
+      tags:
+      - ibc
   /namespace:
     get:
       description: List namespace info
@@ -1714,74 +2285,22 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Namespace'
+                  $ref: "#/components/schemas/responses.Namespace"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List namespace info
-      tags:
-      - namespace
-  /namespace/active:
-    get:
-      description: Get last used namespace
-      operationId: get-namespace-active
-      parameters:
-      - description: "Sort field. Default: time"
-        in: query
-        name: sort
-        schema:
-          enum:
-          - time
-          - pfb_count
-          - size
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/responses.Namespace'
-                type: array
-          description: OK
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/handler.Error'
-          description: Internal Server Error
-      summary: Get last used namespace
-      tags:
-      - namespace
-  /namespace/count:
-    get:
-      description: Get count of namespaces in network
-      operationId: get-namespace-count
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: integer
-          description: OK
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/handler.Error'
-          description: Internal Server Error
-      summary: Get count of namespaces in network
       tags:
       - namespace
   /namespace/{id}:
@@ -1803,20 +2322,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Namespace'
+                  $ref: "#/components/schemas/responses.Namespace"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get namespace info
       tags:
@@ -1845,7 +2364,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Namespace'
+                $ref: "#/components/schemas/responses.Namespace"
           description: OK
         "204":
           content: {}
@@ -1854,13 +2373,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get namespace info by id and version
       tags:
@@ -1948,20 +2467,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.BlobLog'
+                  $ref: "#/components/schemas/responses.BlobLog"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get blob changes for namespace
       tags:
@@ -2002,7 +2521,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.NamespaceMessage'
+                  $ref: "#/components/schemas/responses.NamespaceMessage"
                 type: array
           description: OK
         "204":
@@ -2012,13 +2531,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get namespace messages by id and version
       tags:
@@ -2059,20 +2578,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Rollup'
+                  $ref: "#/components/schemas/responses.Rollup"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List rollups using the namespace
       tags:
@@ -2093,7 +2612,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Namespace'
+                $ref: "#/components/schemas/responses.Namespace"
           description: OK
         "204":
           content: {}
@@ -2102,13 +2621,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get namespace info by base64
       tags:
@@ -2137,18 +2656,179 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Blob'
+                  $ref: "#/components/schemas/responses.Blob"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
       summary: Get namespace blobs on height
       tags:
       - namespace
+  /proposal:
+    get:
+      description: List proposal info
+      operationId: list-proposal
+      parameters:
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: "Sort order. Default: desc"
+        in: query
+        name: sort
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Proposer celestia address
+        in: query
+        name: proposer
+        schema:
+          maxLength: 47
+          minLength: 47
+          type: string
+      - description: Comma-separated proposal status list
+        in: query
+        name: status
+        schema:
+          type: string
+      - description: Comma-separated proposal type list
+        in: query
+        name: type
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.Proposal"
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: List proposal info
+      tags:
+      - proposal
+  /proposal/{id}:
+    get:
+      description: Get proposal info
+      operationId: get-proposal
+      parameters:
+      - description: Internal identity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses.Proposal"
+          description: OK
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get proposal info
+      tags:
+      - proposal
+  /proposal/{id}/votes:
+    get:
+      description: Get proposal's votes
+      operationId: proposal-votes
+      parameters:
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: Option
+        in: path
+        name: option
+        required: true
+        schema:
+          enum:
+          - "yes"
+          - "no"
+          - no_with_veto
+          - abstain
+          type: string
+      - description: Voter type
+        in: path
+        name: voter
+        required: true
+        schema:
+          enum:
+          - address
+          - validator
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.Vote"
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get proposal's votes
+      tags:
+      - proposal
   /rollup:
     get:
       description: List rollups info
@@ -2183,26 +2863,51 @@ paths:
           - size
           - fee
           type: string
+      - description: Comma-separated rollup category list
+        in: query
+        name: category
+        schema:
+          type: string
+      - description: Comma-separated rollup tags list
+        in: query
+        name: tags
+        schema:
+          type: string
+      - description: Comma-separated rollup stack list
+        in: query
+        name: stack
+        schema:
+          type: string
+      - description: Comma-separated rollup provider list
+        in: query
+        name: provider
+        schema:
+          type: string
+      - description: "If true, shows rollups with activity over the last month"
+        in: query
+        name: is_active
+        schema:
+          type: boolean
       responses:
         "200":
           content:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.RollupWithStats'
+                  $ref: "#/components/schemas/responses.RollupWithStats"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List rollups info
       tags:
@@ -2222,7 +2927,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get count of rollups in network
       tags:
@@ -2265,28 +2970,96 @@ paths:
           - pfb_count
           - mb_price
           type: string
+      - description: Comma-separated rollup category list
+        in: query
+        name: category
+        schema:
+          type: string
+      - description: Comma-separated rollup tags list
+        in: query
+        name: tags
+        schema:
+          type: string
+      - description: Comma-separated rollup stack list
+        in: query
+        name: stack
+        schema:
+          type: string
+      - description: Comma-separated rollup provider list
+        in: query
+        name: provider
+        schema:
+          type: string
       responses:
         "200":
           content:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.RollupWithDayStats'
+                  $ref: "#/components/schemas/responses.RollupWithDayStats"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List rollups info with stats by previous 24 hours
+      tags:
+      - rollup
+  /rollup/group:
+    get:
+      description: Rollup Grouped Statistics
+      operationId: rollup-grouped-statistics
+      parameters:
+      - description: Aggregate function
+        in: query
+        name: func
+        schema:
+          enum:
+          - sum
+          - avg
+          type: string
+      - description: Group column
+        in: query
+        name: column
+        schema:
+          enum:
+          - stack
+          - type
+          - category
+          - vm
+          - provider
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.RollupGroupedStats"
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Rollup Grouped Statistics
       tags:
       - rollup
   /rollup/slug/{slug}:
@@ -2305,7 +3078,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Rollup'
+                $ref: "#/components/schemas/responses.Rollup"
           description: OK
         "204":
           content: {}
@@ -2314,41 +3087,52 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get rollup by slug
       tags:
       - rollup
-  /rollup/stats/series:
+  /rollup/stats/series/{timeframe}:
     get:
       description: Get series for all rollups
       operationId: get-rollup-all-series
+      parameters:
+      - description: Timeframe
+        in: path
+        name: timeframe
+        required: true
+        schema:
+          enum:
+          - hour
+          - day
+          - month
+          type: string
       responses:
         "200":
           content:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.RollupAllSeriesItem'
+                  $ref: "#/components/schemas/responses.RollupAllSeriesResponse"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get series for all rollups
       tags:
@@ -2369,7 +3153,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Rollup'
+                $ref: "#/components/schemas/responses.Rollup"
           description: OK
         "204":
           content: {}
@@ -2378,13 +3162,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get rollup info
       tags:
@@ -2439,20 +3223,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.BlobLog'
+                  $ref: "#/components/schemas/responses.BlobLog"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get rollup blobs
       tags:
@@ -2494,20 +3278,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.DistributionItem'
+                  $ref: "#/components/schemas/responses.DistributionItem"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get rollup distribution
       tags:
@@ -2541,13 +3325,13 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Export rollup blobs
       tags:
@@ -2580,20 +3364,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Namespace'
+                  $ref: "#/components/schemas/responses.Namespace"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get rollup namespaces info
       tags:
@@ -2646,20 +3430,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.HistogramItem'
+                  $ref: "#/components/schemas/responses.HistogramItem"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get rollup stats
       tags:
@@ -2714,7 +3498,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.SearchItem'
+                  $ref: "#/components/schemas/responses.SearchItem"
                 type: array
           description: OK
         "204":
@@ -2724,13 +3508,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Search by hash
       tags:
@@ -2745,16 +3529,121 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Change24hBlockStats'
+                  $ref: "#/components/schemas/responses.Change24hBlockStats"
                 type: array
           description: OK
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get changes for 24 hours
+      tags:
+      - stats
+  /stats/ibc/chains:
+    get:
+      description: Get stats for ibc channels splitted by chains
+      operationId: stats-ibc-chains
+      parameters:
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.IbcChainStats"
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get stats for ibc channels splitted by chains
+      tags:
+      - stats
+  /stats/ibc/series/{id}/{name}/{timeframe}:
+    get:
+      description: Get histogram for ibc channels with precomputed stats by series
+        name and timeframe
+      operationId: stats-ibc-series
+      parameters:
+      - description: Channel id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Timeframe
+        in: path
+        name: timeframe
+        required: true
+        schema:
+          enum:
+          - hour
+          - day
+          - month
+          type: string
+      - description: Series name
+        in: path
+        name: name
+        required: true
+        schema:
+          enum:
+          - count
+          - amount
+          type: string
+      - description: Time from in unix timestamp
+        in: query
+        name: from
+        schema:
+          type: integer
+      - description: Time to in unix timestamp
+        in: query
+        name: to
+        schema:
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.HistogramItem"
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get histogram for ibc channels with precomputed stats
       tags:
       - stats
   /stats/messages_count_24h:
@@ -2767,14 +3656,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.CountItem'
+                  $ref: "#/components/schemas/responses.CountItem"
                 type: array
           description: OK
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get messages distribution for the last 24 hours
       tags:
@@ -2830,20 +3719,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.SeriesItem'
+                  $ref: "#/components/schemas/responses.SeriesItem"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get histogram for namespace with precomputed stats
       tags:
@@ -2866,91 +3755,16 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.NamespaceUsage'
+                  $ref: "#/components/schemas/responses.NamespaceUsage"
                 type: array
           description: OK
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get namespaces with sorting by size.
-      tags:
-      - stats
-  /stats/price/current:
-    get:
-      description: Get current TIA price
-      operationId: stats-price-current
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/responses.Price'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/handler.Error'
-          description: Bad Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/handler.Error'
-          description: Internal Server Error
-      summary: Get current TIA price
-      tags:
-      - stats
-  /stats/price/series/{timeframe}:
-    get:
-      description: Get histogram with TIA price
-      operationId: stats-price-series
-      parameters:
-      - description: Timeframe
-        in: path
-        name: timeframe
-        required: true
-        schema:
-          enum:
-          - 1m
-          - 1h
-          - 1d
-          type: string
-      - description: Time from in unix timestamp
-        in: query
-        name: from
-        schema:
-          type: integer
-      - description: Time to in unix timestamp
-        in: query
-        name: to
-        schema:
-          type: integer
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/responses.Price'
-                type: array
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/handler.Error'
-          description: Bad Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/handler.Error'
-          description: Internal Server Error
-      summary: Get histogram with TIA price
       tags:
       - stats
   /stats/rollup_stats_24h:
@@ -2963,20 +3777,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.RollupStats24h'
+                  $ref: "#/components/schemas/responses.RollupStats24h"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get rollups stats for last 24 hours
       tags:
@@ -3037,20 +3851,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.SeriesItem'
+                  $ref: "#/components/schemas/responses.SeriesItem"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get histogram with precomputed stats
       tags:
@@ -3104,22 +3918,44 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.SeriesItem'
+                  $ref: "#/components/schemas/responses.SeriesItem"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get cumulative histogram with precomputed stats
+      tags:
+      - stats
+  /stats/size_groups:
+    get:
+      description: Get blobs count grouped by size
+      operationId: stats-size-groups
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.SizeGroup"
+                type: array
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get blobs count grouped by size
       tags:
       - stats
   /stats/square_size:
@@ -3143,20 +3979,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.SquareSizeResponse'
+                  $ref: "#/components/schemas/responses.SquareSizeResponse"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get histogram for square size distribution
       tags:
@@ -3211,20 +4047,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.SeriesItem'
+                  $ref: "#/components/schemas/responses.SeriesItem"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get histogram for staking with precomputed stats
       tags:
@@ -3343,13 +4179,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get value by table and function
       tags:
@@ -3363,13 +4199,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.TPS'
+                $ref: "#/components/schemas/responses.TPS"
           description: OK
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get tps
       tags:
@@ -3472,6 +4308,9 @@ paths:
           - MsgUpdateClient
           - MsgUpgradeClient
           - MsgSubmitMisbehaviour
+          - MsgRecoverClient
+          - MsgIBCSoftwareUpgrade
+          - MsgUpdateParams
           - MsgConnectionOpenInit
           - MsgConnectionOpenTry
           - MsgConnectionOpenAck
@@ -3486,6 +4325,18 @@ paths:
           - MsgTimeout
           - MsgTimeoutOnClose
           - MsgAcknowledgement
+          - MsgSignalVersion
+          - MsgTryUpgrade
+          - MsgCreateMailbox
+          - MsgProcessMessage
+          - MsgSetMailbox
+          - MsgCreateCollateralToken
+          - MsgCreateSyntheticToken
+          - MsgSetToken
+          - MsgEnrollRemoteRouter
+          - MsgUnrollRemoteRouter
+          - MsgRemoteTransfer
+          - MsgUpdateMinfeeParams
           type: string
       - description: Comma-separated message types list which should be excluded
         in: query
@@ -3552,6 +4403,9 @@ paths:
           - MsgUpdateClient
           - MsgUpgradeClient
           - MsgSubmitMisbehaviour
+          - MsgRecoverClient
+          - MsgIBCSoftwareUpgrade
+          - MsgUpdateParams
           - MsgConnectionOpenInit
           - MsgConnectionOpenTry
           - MsgConnectionOpenAck
@@ -3566,6 +4420,18 @@ paths:
           - MsgTimeout
           - MsgTimeoutOnClose
           - MsgAcknowledgement
+          - MsgSignalVersion
+          - MsgTryUpgrade
+          - MsgCreateMailbox
+          - MsgProcessMessage
+          - MsgSetMailbox
+          - MsgCreateCollateralToken
+          - MsgCreateSyntheticToken
+          - MsgSetToken
+          - MsgEnrollRemoteRouter
+          - MsgUnrollRemoteRouter
+          - MsgRemoteTransfer
+          - MsgUpdateMinfeeParams
           type: string
       - description: Time from in unix timestamp
         in: query
@@ -3593,20 +4459,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Tx'
+                  $ref: "#/components/schemas/responses.Tx"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List transactions info
       tags:
@@ -3626,7 +4492,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get count of transactions in network
       tags:
@@ -3661,20 +4527,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Tx'
+                  $ref: "#/components/schemas/responses.Tx"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List genesis transactions info
       tags:
@@ -3697,7 +4563,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Tx'
+                $ref: "#/components/schemas/responses.Tx"
           description: OK
         "204":
           content: {}
@@ -3706,13 +4572,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get transaction by hash
       tags:
@@ -3763,20 +4629,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.BlobLog'
+                  $ref: "#/components/schemas/responses.BlobLog"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List blobs which was pushed by transaction
       tags:
@@ -3805,13 +4671,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Count of blobs which was pushed by transaction
       tags:
@@ -3846,20 +4712,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Event'
+                  $ref: "#/components/schemas/responses.Event"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get transaction events
       tags:
@@ -3894,20 +4760,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Message'
+                  $ref: "#/components/schemas/responses.Message"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get transaction messages
       tags:
@@ -3939,20 +4805,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Validator'
+                  $ref: "#/components/schemas/responses.Validator"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: List validators
       tags:
@@ -3966,19 +4832,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.ValidatorCount'
+                $ref: "#/components/schemas/responses.ValidatorCount"
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get validator's count by status
       tags:
@@ -3999,7 +4865,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Validator'
+                $ref: "#/components/schemas/responses.Validator"
           description: OK
         "204":
           content: {}
@@ -4008,13 +4874,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get validator info
       tags:
@@ -4046,19 +4912,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.Block'
+                $ref: "#/components/schemas/responses.Block"
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get blocks which was proposed by validator
       tags:
@@ -4098,20 +4964,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Delegation'
+                  $ref: "#/components/schemas/responses.Delegation"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get validator's delegators
       tags:
@@ -4146,20 +5012,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/responses.Jail'
+                  $ref: "#/components/schemas/responses.Jail"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get validator's jails
       tags:
@@ -4186,7 +5052,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.ValidatorUptime'
+                $ref: "#/components/schemas/responses.ValidatorUptime"
           description: OK
         "204":
           content: {}
@@ -4195,15 +5061,63 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Get validator's uptime and history of signed block
+      tags:
+      - validator
+  /validators/{id}/votes:
+    get:
+      description: Get list of votes for validator
+      operationId: validator-votes
+      parameters:
+      - description: Internal validator id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: Count of requested entities
+        in: query
+        name: limit
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+      - description: Offset
+        in: query
+        name: offset
+        schema:
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/responses.Vote"
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handler.Error"
+          description: Internal Server Error
+      summary: Get list of votes for validator
       tags:
       - validator
   /vesting/{id}/periods:
@@ -4234,19 +5148,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responses.VestingPeriod'
+                $ref: "#/components/schemas/responses.VestingPeriod"
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handler.Error'
+                $ref: "#/components/schemas/handler.Error"
           description: Internal Server Error
       summary: Periods vesting periods by id
       tags:
@@ -4360,6 +5274,23 @@ components:
         message:
           type: string
       type: object
+    handler.postBlobRequest:
+      properties:
+        commitment:
+          example: vbGakK59+Non81TE3ULg5Ve5ufT9SFm/bCyY+WLR3gg=
+          type: string
+        hash:
+          example: AAAAAAAAAAAAAAAAAAAAAAAAAAAAs2bWWU6FOB0=
+          type: string
+        height:
+          example: 123456
+          minimum: 1
+          type: integer
+      required:
+      - commitment
+      - hash
+      - height
+      type: object
     responses.Address:
       description: Celestia address information
       example:
@@ -4368,13 +5299,20 @@ components:
           unbonding: "10000000000"
           currency: utia
           delegated: "10000000000"
+        celestials:
+          image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+          name: name
+          primary: true
+          status: VERIFIED
         id: 321
         first_height: 100
         hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
         last_height: 100
       properties:
         balance:
-          $ref: '#/components/schemas/responses.Balance'
+          $ref: "#/components/schemas/responses.Balance"
+        celestials:
+          $ref: "#/components/schemas/responses.Celestial"
         first_height:
           example: 100
           type: integer
@@ -4453,8 +5391,18 @@ components:
           timeout_height: 0
           messages_count: 1
           signers:
-          - signers
-          - signers
+          - celestials:
+              image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+              name: name
+              primary: true
+              status: VERIFIED
+            hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+          - celestials:
+              image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+              name: name
+              primary: true
+              status: VERIFIED
+            hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
           codespace: sdk
           events_count: 2
           gas_wanted: 9348
@@ -4506,7 +5454,13 @@ components:
           logo: https://some_link.com/image.png
           id: 321
           slug: rollup_slug
-        signer: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        signer:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
       properties:
         commitment:
           example: vbGakK59+Non81TE3ULg5Ve5ufT9SFm/bCyY+WLR3gg=
@@ -4525,13 +5479,11 @@ components:
           format: integer
           type: integer
         namespace:
-          $ref: '#/components/schemas/responses.Namespace'
+          $ref: "#/components/schemas/responses.Namespace"
         rollup:
-          $ref: '#/components/schemas/responses.ShortRollup'
+          $ref: "#/components/schemas/responses.ShortRollup"
         signer:
-          example: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
-          format: string
-          type: string
+          $ref: "#/components/schemas/responses.ShortAddress"
         size:
           example: 10
           format: integer
@@ -4541,7 +5493,7 @@ components:
           format: date-time
           type: string
         tx:
-          $ref: '#/components/schemas/responses.Tx'
+          $ref: "#/components/schemas/responses.Tx"
       type: object
     responses.Block:
       example:
@@ -4625,9 +5577,9 @@ components:
           example: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
           type: string
         proposer:
-          $ref: '#/components/schemas/responses.ShortValidator'
+          $ref: "#/components/schemas/responses.ShortValidator"
         stats:
-          $ref: '#/components/schemas/responses.BlockStats'
+          $ref: "#/components/schemas/responses.BlockStats"
         time:
           example: 2023-07-04T03:10:57+00:00
           type: string
@@ -4705,6 +5657,27 @@ components:
           example: 12
           type: integer
       type: object
+    responses.Celestial:
+      description: Linked celestial id
+      example:
+        image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+        name: name
+        primary: true
+        status: VERIFIED
+      properties:
+        image_url:
+          example: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+          type: string
+        name:
+          example: name
+          type: string
+        primary:
+          example: true
+          type: boolean
+        status:
+          example: VERIFIED
+          type: string
+      type: object
     responses.Change24hBlockStats:
       example:
         blobs_size_24h: 0.1234
@@ -4755,11 +5728,11 @@ components:
       properties:
         denom_metadata:
           items:
-            $ref: '#/components/schemas/responses.DenomMetadata'
+            $ref: "#/components/schemas/responses.DenomMetadata"
           type: array
         module:
           additionalProperties:
-            $ref: '#/components/schemas/responses.Params'
+            $ref: "#/components/schemas/responses.Params"
           type: object
       type: object
     responses.CountItem:
@@ -4779,7 +5752,13 @@ components:
     responses.Delegation:
       example:
         amount: "0.1"
-        delegator: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        delegator:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
         validator:
           cons_address: E641C7A2C964833E556AEF934FBF166B712874B6
           id: 321
@@ -4789,10 +5768,9 @@ components:
           example: "0.1"
           type: string
         delegator:
-          example: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
-          type: string
+          $ref: "#/components/schemas/responses.ShortAddress"
         validator:
-          $ref: '#/components/schemas/responses.ShortValidator'
+          $ref: "#/components/schemas/responses.ShortValidator"
       type: object
     responses.DenomMetadata:
       example:
@@ -4845,17 +5823,56 @@ components:
       type: object
     responses.Enums:
       example:
+        ibc_channel_status:
+        - ibc_channel_status
+        - ibc_channel_status
+        proposal_type:
+        - proposal_type
+        - proposal_type
         event_type:
         - event_type
         - event_type
+        proposal_status:
+        - proposal_status
+        - proposal_status
+        vote_type:
+        - vote_type
+        - vote_type
+        rollup_type:
+        - rollup_type
+        - rollup_type
+        celestials_statuses:
+        - celestials_statuses
+        - celestials_statuses
         message_type:
         - message_type
         - message_type
+        categories:
+        - categories
+        - categories
         status:
         - status
         - status
+        tags:
+        - tags
+        - tags
+        vote_option:
+        - vote_option
+        - vote_option
       properties:
+        categories:
+          items:
+            type: string
+          type: array
+        celestials_statuses:
+          items:
+            type: string
+          type: array
         event_type:
+          items:
+            type: string
+          type: array
+        ibc_channel_status:
           items:
             type: string
           type: array
@@ -4863,7 +5880,31 @@ components:
           items:
             type: string
           type: array
+        proposal_status:
+          items:
+            type: string
+          type: array
+        proposal_type:
+          items:
+            type: string
+          type: array
+        rollup_type:
+          items:
+            type: string
+          type: array
         status:
+          items:
+            type: string
+          type: array
+        tags:
+          items:
+            type: string
+          type: array
+        vote_option:
+          items:
+            type: string
+          type: array
+        vote_type:
           items:
             type: string
           type: array
@@ -4905,7 +5946,7 @@ components:
           type: integer
         type:
           allOf:
-          - $ref: '#/components/schemas/types.EventType'
+          - $ref: "#/components/schemas/types.EventType"
           example: commission
           type: object
       type: object
@@ -4931,14 +5972,26 @@ components:
     responses.Grant:
       example:
         authorization: /cosmos.staking.v1beta1.MsgDelegate
-        grantee: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        grantee:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
         expiration: 2023-07-04T03:10:57+00:00
         revoke_height: 123123
         time: 2023-07-04T03:10:57+00:00
         params:
           key: "{}"
         revoked: true
-        granter: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        granter:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
         height: 123123
       properties:
         authorization:
@@ -4948,11 +6001,9 @@ components:
           example: 2023-07-04T03:10:57+00:00
           type: string
         grantee:
-          example: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
-          type: string
+          $ref: "#/components/schemas/responses.ShortAddress"
         granter:
-          example: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
-          type: string
+          $ref: "#/components/schemas/responses.ShortAddress"
         height:
           example: 123123
           type: integer
@@ -4984,6 +6035,364 @@ components:
           format: string
           type: string
       type: object
+    responses.IbcChainStats:
+      example:
+        chain: "123456"
+        received: "123445"
+        sent: "123445"
+        flow: "123445"
+      properties:
+        chain:
+          example: "123456"
+          format: string
+          type: string
+        flow:
+          example: "123445"
+          format: string
+          type: string
+        received:
+          example: "123445"
+          format: string
+          type: string
+        sent:
+          example: "123445"
+          format: string
+          type: string
+      type: object
+    responses.IbcChannel:
+      example:
+        creator:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        confirmation_height: 100
+        ordering: false
+        created_at: 2023-07-04T03:10:57Z
+        version: ics20-1
+        confirmation_tx_hash: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+        counterparty_port_id: transfer
+        connection_id: connection-1
+        counterparty_channel_id: channel-1
+        client:
+          chain_id: osmosis-1
+          id: client-1
+          type: client
+        port_id: transfer
+        created_tx_hash: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+        id: channel-1
+        confirmed_at: 2023-07-04T03:10:57Z
+        height: 100
+        status: opened
+      properties:
+        client:
+          $ref: "#/components/schemas/responses.ShortIbcClient"
+        confirmation_height:
+          example: 100
+          format: integer
+          type: integer
+        confirmation_tx_hash:
+          example: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+          format: binary
+          type: string
+        confirmed_at:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        connection_id:
+          example: connection-1
+          format: string
+          type: string
+        counterparty_channel_id:
+          example: channel-1
+          format: string
+          type: string
+        counterparty_port_id:
+          example: transfer
+          format: string
+          type: string
+        created_at:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        created_tx_hash:
+          example: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+          format: binary
+          type: string
+        creator:
+          $ref: "#/components/schemas/responses.ShortAddress"
+        height:
+          example: 100
+          format: integer
+          type: integer
+        id:
+          example: channel-1
+          format: string
+          type: string
+        ordering:
+          example: false
+          format: boolean
+          type: boolean
+        port_id:
+          example: transfer
+          format: string
+          type: string
+        status:
+          example: opened
+          format: string
+          type: string
+        version:
+          example: ics20-1
+          format: string
+          type: string
+      type: object
+    responses.IbcClient:
+      example:
+        creator:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        chain_id: osmosis-1
+        trusting_period: 100
+        created_at: 2023-07-04T03:10:57Z
+        latest_revision_height: 100
+        tx_hash: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+        trust_level_denominator: 100
+        latest_revision_number: 100
+        type: client
+        frozen_revision_number: 100
+        updated_at: 2023-07-04T03:10:57Z
+        max_clock_drift: 100
+        frozen_revision_height: 100
+        trust_level_numerator: 100
+        connection_count: 100
+        id: client-1
+        unbonding_period: 100
+        height: 100
+      properties:
+        chain_id:
+          example: osmosis-1
+          format: binary
+          type: string
+        connection_count:
+          example: 100
+          format: integer
+          type: integer
+        created_at:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        creator:
+          $ref: "#/components/schemas/responses.ShortAddress"
+        frozen_revision_height:
+          example: 100
+          format: integer
+          type: integer
+        frozen_revision_number:
+          example: 100
+          format: integer
+          type: integer
+        height:
+          example: 100
+          format: integer
+          type: integer
+        id:
+          example: client-1
+          format: string
+          type: string
+        latest_revision_height:
+          example: 100
+          format: integer
+          type: integer
+        latest_revision_number:
+          example: 100
+          format: integer
+          type: integer
+        max_clock_drift:
+          example: 100
+          format: integer
+          type: integer
+        trust_level_denominator:
+          example: 100
+          format: integer
+          type: integer
+        trust_level_numerator:
+          example: 100
+          format: integer
+          type: integer
+        trusting_period:
+          example: 100
+          format: integer
+          type: integer
+        tx_hash:
+          example: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+          format: binary
+          type: string
+        type:
+          example: client
+          format: string
+          type: string
+        unbonding_period:
+          example: 100
+          format: integer
+          type: integer
+        updated_at:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+      type: object
+    responses.IbcConnection:
+      example:
+        channels_count: 100
+        connected_tx_hash: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+        counterparty_connection_id: connection-1
+        client:
+          chain_id: osmosis-1
+          id: client-1
+          type: client
+        created_at: 2023-07-04T03:10:57Z
+        created_tx_hash: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+        connected_at: 2023-07-04T03:10:57Z
+        id: connection-1
+        connected_height: 100
+        counterparty_client_id: client-1
+        height: 100
+      properties:
+        channels_count:
+          example: 100
+          format: integer
+          type: integer
+        client:
+          $ref: "#/components/schemas/responses.ShortIbcClient"
+        connected_at:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        connected_height:
+          example: 100
+          format: integer
+          type: integer
+        connected_tx_hash:
+          example: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+          format: binary
+          type: string
+        counterparty_client_id:
+          example: client-1
+          format: string
+          type: string
+        counterparty_connection_id:
+          example: connection-1
+          format: string
+          type: string
+        created_at:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        created_tx_hash:
+          example: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+          format: binary
+          type: string
+        height:
+          example: 100
+          format: integer
+          type: integer
+        id:
+          example: connection-1
+          format: string
+          type: string
+      type: object
+    responses.IbcTransfer:
+      example:
+        amount: "123445"
+        receiver:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        memo: memo
+        tx_hash: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+        timeout: 2023-07-04T03:10:57Z
+        timeout_height: 100
+        sequence: 123456
+        connection_id: connection-1
+        port: transfer
+        sender:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        denom: utia
+        id: 123456
+        time: 2023-07-04T03:10:57Z
+        channel_id: channel-1
+        height: 100
+      properties:
+        amount:
+          example: "123445"
+          format: string
+          type: string
+        channel_id:
+          example: channel-1
+          format: string
+          type: string
+        connection_id:
+          example: connection-1
+          format: string
+          type: string
+        denom:
+          example: utia
+          format: string
+          type: string
+        height:
+          example: 100
+          format: integer
+          type: integer
+        id:
+          example: 123456
+          format: integer
+          type: integer
+        memo:
+          example: memo
+          format: string
+          type: string
+        port:
+          example: transfer
+          format: string
+          type: string
+        receiver:
+          $ref: "#/components/schemas/responses.ShortAddress"
+        sender:
+          $ref: "#/components/schemas/responses.ShortAddress"
+        sequence:
+          example: 123456
+          format: integer
+          type: integer
+        time:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        timeout:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        timeout_height:
+          example: 100
+          format: integer
+          type: integer
+        tx_hash:
+          example: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
+          format: binary
+          type: string
+      type: object
     responses.Jail:
       example:
         reason: double_sign
@@ -5008,7 +6417,7 @@ components:
           example: 2023-07-04T03:10:57+00:00
           type: string
         validator:
-          $ref: '#/components/schemas/responses.ShortValidator'
+          $ref: "#/components/schemas/responses.ShortValidator"
       type: object
     responses.LightBlobLog:
       example:
@@ -5020,7 +6429,13 @@ components:
         id: 200
         time: 2023-07-04T03:10:57Z
         height: 100
-        signer: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        signer:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
       properties:
         commitment:
           example: vbGakK59+Non81TE3ULg5Ve5ufT9SFm/bCyY+WLR3gg=
@@ -5043,9 +6458,7 @@ components:
           format: base64
           type: string
         signer:
-          example: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
-          format: string
-          type: string
+          $ref: "#/components/schemas/responses.ShortAddress"
         size:
           example: 10
           format: integer
@@ -5097,14 +6510,14 @@ components:
           format: date-time
           type: string
         tx:
-          $ref: '#/components/schemas/responses.Tx'
+          $ref: "#/components/schemas/responses.Tx"
         tx_id:
           example: 11
           format: int64
           type: integer
         type:
           allOf:
-          - $ref: '#/components/schemas/types.MsgType'
+          - $ref: "#/components/schemas/types.MsgType"
           example: MsgCreatePeriodicVestingAccount
           type: object
       type: object
@@ -5143,7 +6556,7 @@ components:
           type: integer
         invocation_type:
           allOf:
-          - $ref: '#/components/schemas/types.MsgAddressType'
+          - $ref: "#/components/schemas/types.MsgAddressType"
           example: fromAddress
           type: object
         position:
@@ -5159,14 +6572,14 @@ components:
           format: date-time
           type: string
         tx:
-          $ref: '#/components/schemas/responses.TxForAddress'
+          $ref: "#/components/schemas/responses.TxForAddress"
         tx_id:
           example: 11
           format: int64
           type: integer
         type:
           allOf:
-          - $ref: '#/components/schemas/types.MsgType'
+          - $ref: "#/components/schemas/types.MsgType"
           example: MsgCreatePeriodicVestingAccount
           type: object
       type: object
@@ -5258,8 +6671,18 @@ components:
           timeout_height: 0
           messages_count: 1
           signers:
-          - signers
-          - signers
+          - celestials:
+              image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+              name: name
+              primary: true
+              status: VERIFIED
+            hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+          - celestials:
+              image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+              name: name
+              primary: true
+              status: VERIFIED
+            hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
           codespace: sdk
           events_count: 2
           gas_wanted: 9348
@@ -5321,7 +6744,7 @@ components:
           format: int64
           type: integer
         namespace:
-          $ref: '#/components/schemas/responses.Namespace'
+          $ref: "#/components/schemas/responses.Namespace"
         position:
           example: 2
           format: int64
@@ -5331,7 +6754,7 @@ components:
           format: date-time
           type: string
         tx:
-          $ref: '#/components/schemas/responses.Tx'
+          $ref: "#/components/schemas/responses.Tx"
         type:
           enum:
           - MsgWithdrawValidatorCommission
@@ -5378,7 +6801,7 @@ components:
       properties:
         items:
           items:
-            $ref: '#/components/schemas/responses.ODSItem'
+            $ref: "#/components/schemas/responses.ODSItem"
           type: array
         width:
           example: 2
@@ -5397,46 +6820,175 @@ components:
             type: integer
           type: array
         type:
-          $ref: '#/components/schemas/responses.NamespaceKind'
+          $ref: "#/components/schemas/responses.NamespaceKind"
       type: object
     responses.Params:
       additionalProperties:
         type: string
       type: object
-    responses.Price:
+    responses.Proposal:
       example:
-        high: "0.17632"
-        low: "0.17632"
-        time: 2023-07-04T03:10:57Z
-        close: "0.17632"
-        open: "0.17632"
+        "no": 1234
+        metadata: metadata
+        yes_voting_power: "1000000000"
+        abstain: 1234
+        no_with_veto_addrs: 1234
+        changes:
+        - 0
+        - 0
+        created_at: 2023-07-04T03:10:57Z
+        description: Some proposal description
+        title: Proposal title
+        type: param_changed
+        abstain_vals: 1234
+        votes_count: 12354
+        no_addrs: 1234
+        no_with_veto_vals: 1234
+        no_with_veto_voting_power: "1000000000"
+        id: 321
+        height: 100
+        no_with_veto: 1234
+        abstain_addrs: 1234
+        proposer:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        "yes": 1234
+        deposit_time: 2023-07-04T03:10:57Z
+        activation_time: 2023-07-04T03:10:57Z
+        voting_power: "1000000000"
+        yes_addrs: 1234
+        abstain_voting_power: "1000000000"
+        yes_vals: 1234
+        deposit: "1000000000"
+        no_vals: 1234
+        no_voting_power: "1000000000"
+        status: active
       properties:
-        close:
-          example: "0.17632"
+        abstain:
+          example: 1234
+          type: integer
+        abstain_addrs:
+          example: 1234
+          type: integer
+        abstain_vals:
+          example: 1234
+          type: integer
+        abstain_voting_power:
+          example: "1000000000"
           format: string
           type: string
-        high:
-          example: "0.17632"
-          format: string
-          type: string
-        low:
-          example: "0.17632"
-          format: string
-          type: string
-        open:
-          example: "0.17632"
-          format: string
-          type: string
-        time:
+        activation_time:
           example: 2023-07-04T03:10:57Z
           format: date-time
+          type: string
+        changes:
+          items:
+            type: integer
+          type: array
+        created_at:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        deposit:
+          example: "1000000000"
+          format: string
+          type: string
+        deposit_time:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        description:
+          example: Some proposal description
+          format: string
+          type: string
+        height:
+          example: 100
+          format: int64
+          type: integer
+        id:
+          example: 321
+          format: int64
+          type: integer
+        metadata:
+          example: metadata
+          format: string
+          type: string
+        "no":
+          example: 1234
+          type: integer
+        no_addrs:
+          example: 1234
+          type: integer
+        no_vals:
+          example: 1234
+          type: integer
+        no_voting_power:
+          example: "1000000000"
+          format: string
+          type: string
+        no_with_veto:
+          example: 1234
+          type: integer
+        no_with_veto_addrs:
+          example: 1234
+          type: integer
+        no_with_veto_vals:
+          example: 1234
+          type: integer
+        no_with_veto_voting_power:
+          example: "1000000000"
+          format: string
+          type: string
+        proposer:
+          $ref: "#/components/schemas/responses.ShortAddress"
+        status:
+          example: active
+          format: string
+          type: string
+        title:
+          example: Proposal title
+          format: string
+          type: string
+        type:
+          example: param_changed
+          format: string
+          type: string
+        votes_count:
+          example: 12354
+          type: integer
+        voting_power:
+          example: "1000000000"
+          format: string
+          type: string
+        "yes":
+          example: 1234
+          type: integer
+        yes_addrs:
+          example: 1234
+          type: integer
+        yes_vals:
+          example: 1234
+          type: integer
+        yes_voting_power:
+          example: "1000000000"
+          format: string
           type: string
       type: object
     responses.Redelegation:
       example:
         amount: "0.1"
         completion_time: 2023-07-04T03:10:57+00:00
-        delegator: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        delegator:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
         destination:
           cons_address: E641C7A2C964833E556AEF934FBF166B712874B6
           id: 321
@@ -5455,15 +7007,14 @@ components:
           example: 2023-07-04T03:10:57+00:00
           type: string
         delegator:
-          example: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
-          type: string
+          $ref: "#/components/schemas/responses.ShortAddress"
         destination:
-          $ref: '#/components/schemas/responses.ShortValidator'
+          $ref: "#/components/schemas/responses.ShortValidator"
         height:
           example: 100
           type: integer
         source:
-          $ref: '#/components/schemas/responses.ShortValidator'
+          $ref: "#/components/schemas/responses.ShortValidator"
         time:
           example: 2023-07-04T03:10:57+00:00
           type: string
@@ -5473,9 +7024,18 @@ components:
         github: https://github.com/account
         stack: op_stack
         website: https://website.com
+        defi_lama: Manta
+        color: "#123456"
+        settled_on: Ethereum
         description: Long rollup description
+        type: settled
+        tags:
+        - tags
+        - tags
         twitter: https://x.com/account
         l2_beat: https://github.com/account
+        provider: name
+        vm: evm
         explorer: https://explorer.karak.network/
         name: Rollup name
         logo: https://some_link.com/image.png
@@ -5484,10 +7044,28 @@ components:
         - links
         bridge: https://github.com/account
         id: 321
+        category: nft
+        compression: zip
         slug: rollup_slug
       properties:
         bridge:
           example: https://github.com/account
+          format: string
+          type: string
+        category:
+          example: nft
+          format: string
+          type: string
+        color:
+          example: "#123456"
+          format: string
+          type: string
+        compression:
+          example: zip
+          format: string
+          type: string
+        defi_lama:
+          example: Manta
           format: string
           type: string
         description:
@@ -5522,6 +7100,14 @@ components:
           example: Rollup name
           format: string
           type: string
+        provider:
+          example: name
+          format: string
+          type: string
+        settled_on:
+          example: Ethereum
+          format: string
+          type: string
         slug:
           example: rollup_slug
           format: string
@@ -5530,8 +7116,20 @@ components:
           example: op_stack
           format: string
           type: string
+        tags:
+          items:
+            type: string
+          type: array
         twitter:
           example: https://x.com/account
+          format: string
+          type: string
+        type:
+          example: settled
+          format: string
+          type: string
+        vm:
+          example: evm
           format: string
           type: string
         website:
@@ -5546,7 +7144,6 @@ components:
         fee: "123"
         name: Rollup name
         logo: https://some_link.com/image.png
-        time: 2023-07-04T03:10:57Z
       properties:
         blobs_count:
           example: 123
@@ -5568,10 +7165,54 @@ components:
           example: 123
           format: integer
           type: integer
+      type: object
+    responses.RollupAllSeriesResponse:
+      example:
+        time: 2023-07-04T03:10:57Z
+        items:
+        - blobs_count: 123
+          size: 123
+          fee: "123"
+          name: Rollup name
+          logo: https://some_link.com/image.png
+        - blobs_count: 123
+          size: 123
+          fee: "123"
+          name: Rollup name
+          logo: https://some_link.com/image.png
+      properties:
+        items:
+          items:
+            $ref: "#/components/schemas/responses.RollupAllSeriesItem"
+          type: array
         time:
           example: 2023-07-04T03:10:57Z
           format: date-time
           type: string
+      type: object
+    responses.RollupGroupedStats:
+      example:
+        blobs_count: 2
+        size: 1000
+        fee: "123.456789"
+        group: group
+      properties:
+        blobs_count:
+          example: 2
+          format: integer
+          type: integer
+        fee:
+          example: "123.456789"
+          format: string
+          type: string
+        group:
+          example: group
+          format: string
+          type: string
+        size:
+          example: 1000
+          format: integer
+          type: integer
       type: object
     responses.RollupStats24h:
       example:
@@ -5609,28 +7250,36 @@ components:
       type: object
     responses.RollupWithDayStats:
       example:
-        mb_price: "100"
         namespace_count: 100
-        github: https://github.com/account
         stack: op_stack
-        website: https://website.com
-        total_size: 100
+        defi_lama: Manta
+        color: "#123456"
+        settled_on: Ethereum
         description: Long rollup description
-        avg_size: 100
+        type: settled
         blobs_count: 100
-        pfb_count: 100
         twitter: https://x.com/account
         l2_beat: https://l2beat.com/scaling/projects/karak
-        blobs_per_pfb: 100.0
+        provider: name
         total_fee: "100"
-        explorer: https://explorer.karak.network/
-        name: Rollup name
         logo: https://some_link.com/image.png
-        bridge: https://github.com/account
         id: 321
         throughput: 100
-        fee_per_pfb: "100"
         slug: rollup_slug
+        mb_price: "100"
+        github: https://github.com/account
+        website: https://website.com
+        total_size: 100
+        avg_size: 100
+        pfb_count: 100
+        blobs_per_pfb: 100.0
+        vm: evm
+        explorer: https://explorer.karak.network/
+        name: Rollup name
+        bridge: https://github.com/account
+        category: nft
+        compression: zip
+        fee_per_pfb: "100"
       properties:
         avg_size:
           example: 100
@@ -5646,6 +7295,22 @@ components:
           type: number
         bridge:
           example: https://github.com/account
+          format: string
+          type: string
+        category:
+          example: nft
+          format: string
+          type: string
+        color:
+          example: "#123456"
+          format: string
+          type: string
+        compression:
+          example: zip
+          format: string
+          type: string
+        defi_lama:
+          example: Manta
           format: string
           type: string
         description:
@@ -5692,6 +7357,14 @@ components:
           example: 100
           format: integer
           type: integer
+        provider:
+          example: name
+          format: string
+          type: string
+        settled_on:
+          example: Ethereum
+          format: string
+          type: string
         slug:
           example: rollup_slug
           format: string
@@ -5716,6 +7389,14 @@ components:
           example: https://x.com/account
           format: string
           type: string
+        type:
+          example: settled
+          format: string
+          type: string
+        vm:
+          example: evm
+          format: string
+          type: string
         website:
           example: https://website.com
           format: string
@@ -5723,29 +7404,42 @@ components:
       type: object
     responses.RollupWithStats:
       example:
-        github: https://github.com/account
         stack: op_stack
-        website: https://website.com
-        size_pct: 0.9876
+        defi_lama: Manta
+        color: "#123456"
         fee: "123.456789"
+        settled_on: Ethereum
         description: Long rollup description
+        type: settled
         blobs_count: 2
         twitter: https://x.com/account
         l2_beat: https://l2beat.com/scaling/projects/karak
-        size: 1000
-        explorer: https://explorer.karak.network/
-        last_message_time: 2023-07-04T03:10:57Z
-        name: Rollup name
-        fee_pct: 0.9876
+        provider: name
         logo: https://some_link.com/image.png
         links:
         - links
         - links
-        bridge: https://github.com/account
         id: 321
-        first_message_time: 2023-07-04T03:10:57Z
         blobs_count_pct: 0.9876
         slug: rollup_slug
+        github: https://github.com/account
+        website: https://website.com
+        is_active: true
+        size_pct: 0.9876
+        tags:
+        - tags
+        - tags
+        size: 1000
+        da_pct: 0.9876
+        vm: evm
+        explorer: https://explorer.karak.network/
+        last_message_time: 2023-07-04T03:10:57Z
+        name: Rollup name
+        fee_pct: 0.9876
+        bridge: https://github.com/account
+        category: nft
+        compression: zip
+        first_message_time: 2023-07-04T03:10:57Z
       properties:
         blobs_count:
           example: 2
@@ -5757,6 +7451,26 @@ components:
           type: number
         bridge:
           example: https://github.com/account
+          format: string
+          type: string
+        category:
+          example: nft
+          format: string
+          type: string
+        color:
+          example: "#123456"
+          format: string
+          type: string
+        compression:
+          example: zip
+          format: string
+          type: string
+        da_pct:
+          example: 0.9876
+          format: float
+          type: number
+        defi_lama:
+          example: Manta
           format: string
           type: string
         description:
@@ -5787,6 +7501,10 @@ components:
           example: 321
           format: integer
           type: integer
+        is_active:
+          example: true
+          format: boolean
+          type: boolean
         l2_beat:
           example: https://l2beat.com/scaling/projects/karak
           format: string
@@ -5807,6 +7525,14 @@ components:
           example: Rollup name
           format: string
           type: string
+        provider:
+          example: name
+          format: string
+          type: string
+        settled_on:
+          example: Ethereum
+          format: string
+          type: string
         size:
           example: 1000
           format: integer
@@ -5823,8 +7549,20 @@ components:
           example: op_stack
           format: string
           type: string
+        tags:
+          items:
+            type: string
+          type: array
         twitter:
           example: https://x.com/account
+          format: string
+          type: string
+        type:
+          example: settled
+          format: string
+          type: string
+        vm:
+          example: evm
           format: string
           type: string
         website:
@@ -5868,6 +7606,40 @@ components:
           type: string
         value:
           example: "0.17632"
+          format: string
+          type: string
+      type: object
+    responses.ShortAddress:
+      example:
+        celestials:
+          image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+          name: name
+          primary: true
+          status: VERIFIED
+        hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+      properties:
+        celestials:
+          $ref: "#/components/schemas/responses.Celestial"
+        hash:
+          example: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+          type: string
+      type: object
+    responses.ShortIbcClient:
+      example:
+        chain_id: osmosis-1
+        id: client-1
+        type: client
+      properties:
+        chain_id:
+          example: osmosis-1
+          format: binary
+          type: string
+        id:
+          example: client-1
+          format: string
+          type: string
+        type:
+          example: client
           format: string
           type: string
       type: object
@@ -5923,16 +7695,42 @@ components:
           example: true
           type: boolean
       type: object
+    responses.SizeGroup:
+      example:
+        size: 123
+        count: 123
+        name: Rollup name
+        avg_size: 123
+      properties:
+        avg_size:
+          example: 123
+          format: integer
+          type: integer
+        count:
+          example: 123
+          format: integer
+          type: integer
+        name:
+          example: Rollup name
+          format: string
+          type: string
+        size:
+          example: 123
+          format: integer
+          type: integer
+      type: object
     responses.SquareSizeResponse:
       additionalProperties:
         items:
-          $ref: '#/components/schemas/responses.TimeValueItem'
+          $ref: "#/components/schemas/responses.TimeValueItem"
         type: array
       type: object
     responses.State:
       example:
         synced: true
         chain_id: mocha-4
+        total_namespaces: 312
+        total_ibc_clients: 312
         total_supply: "312"
         total_tx: 23456
         total_stake: "312"
@@ -5944,6 +7742,7 @@ components:
         name: indexer
         total_voting_power: "312"
         total_blobs_size: 56789
+        total_proposals: 56789
         id: 321
         hash: 652452A670018D629CC116E510BA88C1CABE061336661B1F3D206D248BD558AF
       properties:
@@ -5987,6 +7786,18 @@ components:
           example: "312"
           format: string
           type: string
+        total_ibc_clients:
+          example: 312
+          format: string
+          type: integer
+        total_namespaces:
+          example: 312
+          format: string
+          type: integer
+        total_proposals:
+          example: 56789
+          format: int64
+          type: integer
         total_stake:
           example: "312"
           format: string
@@ -6050,8 +7861,18 @@ components:
         timeout_height: 0
         messages_count: 1
         signers:
-        - signers
-        - signers
+        - celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        - celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
         codespace: sdk
         events_count: 2
         gas_wanted: 9348
@@ -6128,11 +7949,11 @@ components:
           - MsgSend
           - MsgUnjail
           items:
-            $ref: '#/components/schemas/types.MsgType'
+            $ref: "#/components/schemas/types.MsgType"
           type: array
         messages:
           items:
-            $ref: '#/components/schemas/responses.Message'
+            $ref: "#/components/schemas/responses.Message"
           type: array
         messages_count:
           example: 1
@@ -6144,11 +7965,11 @@ components:
           type: integer
         signers:
           items:
-            type: string
+            $ref: "#/components/schemas/responses.ShortAddress"
           type: array
         status:
           allOf:
-          - $ref: '#/components/schemas/github_com_celenium-io_celestia-indexer_internal_storage_types.Status'
+          - $ref: "#/components/schemas/github_com_celenium-io_celestia-indexer_internal_storage_types.Status"
           example: success
           type: object
         time:
@@ -6183,7 +8004,7 @@ components:
           - MsgSend
           - MsgUnjail
           items:
-            $ref: '#/components/schemas/types.MsgType'
+            $ref: "#/components/schemas/types.MsgType"
           type: array
         messages_count:
           example: 1
@@ -6191,7 +8012,7 @@ components:
           type: integer
         status:
           allOf:
-          - $ref: '#/components/schemas/github_com_celenium-io_celestia-indexer_internal_storage_types.Status'
+          - $ref: "#/components/schemas/github_com_celenium-io_celestia-indexer_internal_storage_types.Status"
           example: success
           type: object
       type: object
@@ -6199,7 +8020,13 @@ components:
       example:
         amount: "0.1"
         completion_time: 2023-07-04T03:10:57+00:00
-        delegator: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        delegator:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
         validator:
           cons_address: E641C7A2C964833E556AEF934FBF166B712874B6
           id: 321
@@ -6214,8 +8041,7 @@ components:
           example: 2023-07-04T03:10:57+00:00
           type: string
         delegator:
-          example: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
-          type: string
+          $ref: "#/components/schemas/responses.ShortAddress"
         height:
           example: 100
           type: integer
@@ -6223,13 +8049,25 @@ components:
           example: 2023-07-04T03:10:57+00:00
           type: string
         validator:
-          $ref: '#/components/schemas/responses.ShortValidator'
+          $ref: "#/components/schemas/responses.ShortValidator"
       type: object
     responses.Validator:
       example:
         website: https://www.easy2stake.com/
-        address: celestiavaloper1un77nfm6axkhkupe8fk4xl6fd4adz3y59fucpu
-        delegator: celestia1un77nfm6axkhkupe8fk4xl6fd4adz3y5qk7ph6
+        address:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        delegator:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
         max_rate: "0.1"
         moniker: Easy 2 Stake
         voting_power: "1"
@@ -6247,8 +8085,7 @@ components:
         rewards: "1"
       properties:
         address:
-          example: celestiavaloper1un77nfm6axkhkupe8fk4xl6fd4adz3y59fucpu
-          type: string
+          $ref: "#/components/schemas/responses.ShortAddress"
         commissions:
           example: "1"
           type: string
@@ -6259,8 +8096,7 @@ components:
           example: security@0xfury.com
           type: string
         delegator:
-          example: celestia1un77nfm6axkhkupe8fk4xl6fd4adz3y5qk7ph6
-          type: string
+          $ref: "#/components/schemas/responses.ShortAddress"
         details:
           example: Some long text about validator
           type: string
@@ -6332,7 +8168,7 @@ components:
       properties:
         blocks:
           items:
-            $ref: '#/components/schemas/responses.SignedBlocks'
+            $ref: "#/components/schemas/responses.SignedBlocks"
           type: array
         uptime:
           example: "0.97"
@@ -6395,6 +8231,60 @@ components:
           example: 2023-07-04T03:10:57Z
           format: date-time
           type: string
+      type: object
+    responses.Vote:
+      example:
+        proposal_id: 2
+        voter_id: 1
+        validator:
+          cons_address: E641C7A2C964833E556AEF934FBF166B712874B6
+          id: 321
+          moniker: Easy 2 Stake
+        weight: 12345678
+        deposit_time: 2023-07-04T03:10:57Z
+        id: 321
+        voter:
+          celestials:
+            image_url: https://ipfs.io/ipfs/QmUi269vE25fagqhyMCCTNSoiW6x4LHCwwQb3keSrEXAmC
+            name: name
+            primary: true
+            status: VERIFIED
+          hash: celestia1jc92qdnty48pafummfr8ava2tjtuhfdw774w60
+        height: 100
+        status: "yes"
+      properties:
+        deposit_time:
+          example: 2023-07-04T03:10:57Z
+          format: date-time
+          type: string
+        height:
+          example: 100
+          format: int64
+          type: integer
+        id:
+          example: 321
+          format: int64
+          type: integer
+        proposal_id:
+          example: 2
+          format: int64
+          type: integer
+        status:
+          example: "yes"
+          format: string
+          type: string
+        validator:
+          $ref: "#/components/schemas/responses.ShortValidator"
+        voter:
+          $ref: "#/components/schemas/responses.ShortAddress"
+        voter_id:
+          example: 1
+          format: int64
+          type: integer
+        weight:
+          example: 12345678
+          format: int64
+          type: integer
       type: object
     types.EventType:
       enum:
@@ -6638,6 +8528,9 @@ components:
       - MsgUpdateClient
       - MsgUpgradeClient
       - MsgSubmitMisbehaviour
+      - MsgRecoverClient
+      - MsgIBCSoftwareUpgrade
+      - MsgUpdateParams
       - MsgConnectionOpenInit
       - MsgConnectionOpenTry
       - MsgConnectionOpenAck
@@ -6652,6 +8545,18 @@ components:
       - MsgTimeout
       - MsgTimeoutOnClose
       - MsgAcknowledgement
+      - MsgSignalVersion
+      - MsgTryUpgrade
+      - MsgCreateMailbox
+      - MsgProcessMessage
+      - MsgSetMailbox
+      - MsgCreateCollateralToken
+      - MsgCreateSyntheticToken
+      - MsgSetToken
+      - MsgEnrollRemoteRouter
+      - MsgUnrollRemoteRouter
+      - MsgRemoteTransfer
+      - MsgUpdateMinfeeParams
       type: string
       x-enum-varnames:
       - MsgUnknown
@@ -6714,6 +8619,9 @@ components:
       - MsgUpdateClient
       - MsgUpgradeClient
       - MsgSubmitMisbehaviour
+      - MsgRecoverClient
+      - MsgIBCSoftwareUpgrade
+      - MsgUpdateParams
       - MsgConnectionOpenInit
       - MsgConnectionOpenTry
       - MsgConnectionOpenAck
@@ -6728,6 +8636,18 @@ components:
       - MsgTimeout
       - MsgTimeoutOnClose
       - MsgAcknowledgement
+      - MsgSignalVersion
+      - MsgTryUpgrade
+      - MsgCreateMailbox
+      - MsgProcessMessage
+      - MsgSetMailbox
+      - MsgCreateCollateralToken
+      - MsgCreateSyntheticToken
+      - MsgSetToken
+      - MsgEnrollRemoteRouter
+      - MsgUnrollRemoteRouter
+      - MsgRemoteTransfer
+      - MsgUpdateMinfeeParams
   securitySchemes:
     ApiKeyAuth:
       description: To authorize your requests you have to select the required tariff

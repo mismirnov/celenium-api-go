@@ -7,13 +7,12 @@ Method | HTTP request | Description
 [**GetBlob**](NamespaceAPI.md#GetBlob) | **Post** /blob | Get namespace blob by commitment on height
 [**GetBlobLogs**](NamespaceAPI.md#GetBlobLogs) | **Get** /namespace/{id}/{version}/blobs | Get blob changes for namespace
 [**GetBlobMetadata**](NamespaceAPI.md#GetBlobMetadata) | **Post** /blob/metadata | Get blob metadata by commitment on height
+[**GetBlobProof**](NamespaceAPI.md#GetBlobProof) | **Get** /blob/proofs | Get blob inclusion proofs
 [**GetBlobs**](NamespaceAPI.md#GetBlobs) | **Get** /blob | List all blobs with filters
 [**GetNamespace**](NamespaceAPI.md#GetNamespace) | **Get** /namespace/{id} | Get namespace info
-[**GetNamespaceActive**](NamespaceAPI.md#GetNamespaceActive) | **Get** /namespace/active | Get last used namespace
 [**GetNamespaceBase64**](NamespaceAPI.md#GetNamespaceBase64) | **Get** /namespace_by_hash/{hash} | Get namespace info by base64
 [**GetNamespaceBlobs**](NamespaceAPI.md#GetNamespaceBlobs) | **Get** /namespace_by_hash/{hash}/{height} | Get namespace blobs on height
 [**GetNamespaceByVersionAndId**](NamespaceAPI.md#GetNamespaceByVersionAndId) | **Get** /namespace/{id}/{version} | Get namespace info by id and version
-[**GetNamespaceCount**](NamespaceAPI.md#GetNamespaceCount) | **Get** /namespace/count | Get count of namespaces in network
 [**GetNamespaceMessages**](NamespaceAPI.md#GetNamespaceMessages) | **Get** /namespace/{id}/{version}/messages | Get namespace messages by id and version
 [**GetNamespaceRollups**](NamespaceAPI.md#GetNamespaceRollups) | **Get** /namespace/{id}/{version}/rollups | List rollups using the namespace
 [**ListNamespace**](NamespaceAPI.md#ListNamespace) | **Get** /namespace | List namespace info
@@ -22,7 +21,7 @@ Method | HTTP request | Description
 
 ## GetBlob
 
-> ResponsesBlob GetBlob(ctx).Commitment(commitment).Execute()
+> ResponsesBlob GetBlob(ctx).Request(request).Execute()
 
 Get namespace blob by commitment on height
 
@@ -41,11 +40,11 @@ import (
 )
 
 func main() {
-	commitment := "commitment_example" // string | Blob commitment
+	request := *openapiclient.NewHandlerPostBlobRequest("vbGakK59+Non81TE3ULg5Ve5ufT9SFm/bCyY+WLR3gg=", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAs2bWWU6FOB0=", int32(123456)) // HandlerPostBlobRequest | Request body containing height, commitment and namespace hash
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespaceAPI.GetBlob(context.Background()).Commitment(commitment).Execute()
+	resp, r, err := apiClient.NamespaceAPI.GetBlob(context.Background()).Request(request).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetBlob``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -66,7 +65,7 @@ Other parameters are passed through a pointer to a apiGetBlobRequest struct via 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **commitment** | **string** | Blob commitment | 
+ **request** | [**HandlerPostBlobRequest**](HandlerPostBlobRequest.md) | Request body containing height, commitment and namespace hash | 
 
 ### Return type
 
@@ -181,7 +180,7 @@ No authorization required
 
 ## GetBlobMetadata
 
-> ResponsesBlobLog GetBlobMetadata(ctx).Commitment(commitment).Execute()
+> ResponsesBlobLog GetBlobMetadata(ctx).Request(request).Execute()
 
 Get blob metadata by commitment on height
 
@@ -200,11 +199,11 @@ import (
 )
 
 func main() {
-	commitment := "commitment_example" // string | Blob commitment
+	request := *openapiclient.NewHandlerPostBlobRequest("vbGakK59+Non81TE3ULg5Ve5ufT9SFm/bCyY+WLR3gg=", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAs2bWWU6FOB0=", int32(123456)) // HandlerPostBlobRequest | Request body containing height, commitment and namespace hash
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespaceAPI.GetBlobMetadata(context.Background()).Commitment(commitment).Execute()
+	resp, r, err := apiClient.NamespaceAPI.GetBlobMetadata(context.Background()).Request(request).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetBlobMetadata``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -225,7 +224,73 @@ Other parameters are passed through a pointer to a apiGetBlobMetadataRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **commitment** | **string** | Blob commitment | 
+ **request** | [**HandlerPostBlobRequest**](HandlerPostBlobRequest.md) | Request body containing height, commitment and namespace hash | 
+
+### Return type
+
+[**ResponsesBlobLog**](ResponsesBlobLog.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBlobProof
+
+> ResponsesBlobLog GetBlobProof(ctx).Request(request).Execute()
+
+Get blob inclusion proofs
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/mismirnov/celenium-api-go"
+)
+
+func main() {
+	request := *openapiclient.NewHandlerPostBlobRequest("vbGakK59+Non81TE3ULg5Ve5ufT9SFm/bCyY+WLR3gg=", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAs2bWWU6FOB0=", int32(123456)) // HandlerPostBlobRequest | Request body containing height, commitment and namespace hash
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NamespaceAPI.GetBlobProof(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetBlobProof``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBlobProof`: ResponsesBlobLog
+	fmt.Fprintf(os.Stdout, "Response from `NamespaceAPI.GetBlobProof`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBlobProofRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request** | [**HandlerPostBlobRequest**](HandlerPostBlobRequest.md) | Request body containing height, commitment and namespace hash | 
 
 ### Return type
 
@@ -380,72 +445,6 @@ Other parameters are passed through a pointer to a apiGetNamespaceRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
-### Return type
-
-[**[]ResponsesNamespace**](ResponsesNamespace.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetNamespaceActive
-
-> []ResponsesNamespace GetNamespaceActive(ctx).Sort(sort).Execute()
-
-Get last used namespace
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/mismirnov/celenium-api-go"
-)
-
-func main() {
-	sort := "sort_example" // string | Sort field. Default: time (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespaceAPI.GetNamespaceActive(context.Background()).Sort(sort).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetNamespaceActive``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetNamespaceActive`: []ResponsesNamespace
-	fmt.Fprintf(os.Stdout, "Response from `NamespaceAPI.GetNamespaceActive`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetNamespaceActiveRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sort** | **string** | Sort field. Default: time | 
 
 ### Return type
 
@@ -666,67 +665,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ResponsesNamespace**](ResponsesNamespace.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetNamespaceCount
-
-> int32 GetNamespaceCount(ctx).Execute()
-
-Get count of namespaces in network
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/mismirnov/celenium-api-go"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespaceAPI.GetNamespaceCount(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `NamespaceAPI.GetNamespaceCount``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetNamespaceCount`: int32
-	fmt.Fprintf(os.Stdout, "Response from `NamespaceAPI.GetNamespaceCount`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetNamespaceCountRequest struct via the builder pattern
-
-
-### Return type
-
-**int32**
 
 ### Authorization
 

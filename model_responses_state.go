@@ -31,6 +31,9 @@ type ResponsesState struct {
 	TotalAccounts *int64 `json:"total_accounts,omitempty"`
 	TotalBlobsSize *int64 `json:"total_blobs_size,omitempty"`
 	TotalFee *string `json:"total_fee,omitempty"`
+	TotalIbcClients *int32 `json:"total_ibc_clients,omitempty"`
+	TotalNamespaces *int32 `json:"total_namespaces,omitempty"`
+	TotalProposals *int64 `json:"total_proposals,omitempty"`
 	TotalStake *string `json:"total_stake,omitempty"`
 	TotalSupply *string `json:"total_supply,omitempty"`
 	TotalTx *int64 `json:"total_tx,omitempty"`
@@ -375,6 +378,102 @@ func (o *ResponsesState) SetTotalFee(v string) {
 	o.TotalFee = &v
 }
 
+// GetTotalIbcClients returns the TotalIbcClients field value if set, zero value otherwise.
+func (o *ResponsesState) GetTotalIbcClients() int32 {
+	if o == nil || IsNil(o.TotalIbcClients) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalIbcClients
+}
+
+// GetTotalIbcClientsOk returns a tuple with the TotalIbcClients field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesState) GetTotalIbcClientsOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalIbcClients) {
+		return nil, false
+	}
+	return o.TotalIbcClients, true
+}
+
+// HasTotalIbcClients returns a boolean if a field has been set.
+func (o *ResponsesState) HasTotalIbcClients() bool {
+	if o != nil && !IsNil(o.TotalIbcClients) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalIbcClients gets a reference to the given int32 and assigns it to the TotalIbcClients field.
+func (o *ResponsesState) SetTotalIbcClients(v int32) {
+	o.TotalIbcClients = &v
+}
+
+// GetTotalNamespaces returns the TotalNamespaces field value if set, zero value otherwise.
+func (o *ResponsesState) GetTotalNamespaces() int32 {
+	if o == nil || IsNil(o.TotalNamespaces) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalNamespaces
+}
+
+// GetTotalNamespacesOk returns a tuple with the TotalNamespaces field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesState) GetTotalNamespacesOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalNamespaces) {
+		return nil, false
+	}
+	return o.TotalNamespaces, true
+}
+
+// HasTotalNamespaces returns a boolean if a field has been set.
+func (o *ResponsesState) HasTotalNamespaces() bool {
+	if o != nil && !IsNil(o.TotalNamespaces) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalNamespaces gets a reference to the given int32 and assigns it to the TotalNamespaces field.
+func (o *ResponsesState) SetTotalNamespaces(v int32) {
+	o.TotalNamespaces = &v
+}
+
+// GetTotalProposals returns the TotalProposals field value if set, zero value otherwise.
+func (o *ResponsesState) GetTotalProposals() int64 {
+	if o == nil || IsNil(o.TotalProposals) {
+		var ret int64
+		return ret
+	}
+	return *o.TotalProposals
+}
+
+// GetTotalProposalsOk returns a tuple with the TotalProposals field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesState) GetTotalProposalsOk() (*int64, bool) {
+	if o == nil || IsNil(o.TotalProposals) {
+		return nil, false
+	}
+	return o.TotalProposals, true
+}
+
+// HasTotalProposals returns a boolean if a field has been set.
+func (o *ResponsesState) HasTotalProposals() bool {
+	if o != nil && !IsNil(o.TotalProposals) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalProposals gets a reference to the given int64 and assigns it to the TotalProposals field.
+func (o *ResponsesState) SetTotalProposals(v int64) {
+	o.TotalProposals = &v
+}
+
 // GetTotalStake returns the TotalStake field value if set, zero value otherwise.
 func (o *ResponsesState) GetTotalStake() string {
 	if o == nil || IsNil(o.TotalStake) {
@@ -574,6 +673,15 @@ func (o ResponsesState) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TotalFee) {
 		toSerialize["total_fee"] = o.TotalFee
+	}
+	if !IsNil(o.TotalIbcClients) {
+		toSerialize["total_ibc_clients"] = o.TotalIbcClients
+	}
+	if !IsNil(o.TotalNamespaces) {
+		toSerialize["total_namespaces"] = o.TotalNamespaces
+	}
+	if !IsNil(o.TotalProposals) {
+		toSerialize["total_proposals"] = o.TotalProposals
 	}
 	if !IsNil(o.TotalStake) {
 		toSerialize["total_stake"] = o.TotalStake

@@ -34,6 +34,34 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test StatsAPIService StatsIbcChains", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.StatsAPI.StatsIbcChains(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test StatsAPIService StatsIbcSeries", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+		var timeframe string
+		var name string
+
+		resp, httpRes, err := apiClient.StatsAPI.StatsIbcSeries(context.Background(), id, timeframe, name).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test StatsAPIService StatsMessagesCount24h", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -67,32 +95,6 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 		var name string
 
 		resp, httpRes, err := apiClient.StatsAPI.StatsNsSeries(context.Background(), id, timeframe, name).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test StatsAPIService StatsPriceCurrent", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.StatsAPI.StatsPriceCurrent(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test StatsAPIService StatsPriceSeries", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var timeframe string
-
-		resp, httpRes, err := apiClient.StatsAPI.StatsPriceSeries(context.Background(), timeframe).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -135,6 +137,18 @@ func Test_celenium_StatsAPIService(t *testing.T) {
 		var name string
 
 		resp, httpRes, err := apiClient.StatsAPI.StatsSeriesCumulative(context.Background(), timeframe, name).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test StatsAPIService StatsSizeGroups", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.StatsAPI.StatsSizeGroups(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

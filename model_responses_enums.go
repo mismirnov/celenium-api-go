@@ -20,9 +20,18 @@ var _ MappedNullable = &ResponsesEnums{}
 
 // ResponsesEnums struct for ResponsesEnums
 type ResponsesEnums struct {
+	Categories []string `json:"categories,omitempty"`
+	CelestialsStatuses []string `json:"celestials_statuses,omitempty"`
 	EventType []string `json:"event_type,omitempty"`
+	IbcChannelStatus []string `json:"ibc_channel_status,omitempty"`
 	MessageType []string `json:"message_type,omitempty"`
+	ProposalStatus []string `json:"proposal_status,omitempty"`
+	ProposalType []string `json:"proposal_type,omitempty"`
+	RollupType []string `json:"rollup_type,omitempty"`
 	Status []string `json:"status,omitempty"`
+	Tags []string `json:"tags,omitempty"`
+	VoteOption []string `json:"vote_option,omitempty"`
+	VoteType []string `json:"vote_type,omitempty"`
 }
 
 // NewResponsesEnums instantiates a new ResponsesEnums object
@@ -40,6 +49,70 @@ func NewResponsesEnums() *ResponsesEnums {
 func NewResponsesEnumsWithDefaults() *ResponsesEnums {
 	this := ResponsesEnums{}
 	return &this
+}
+
+// GetCategories returns the Categories field value if set, zero value otherwise.
+func (o *ResponsesEnums) GetCategories() []string {
+	if o == nil || IsNil(o.Categories) {
+		var ret []string
+		return ret
+	}
+	return o.Categories
+}
+
+// GetCategoriesOk returns a tuple with the Categories field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesEnums) GetCategoriesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Categories) {
+		return nil, false
+	}
+	return o.Categories, true
+}
+
+// HasCategories returns a boolean if a field has been set.
+func (o *ResponsesEnums) HasCategories() bool {
+	if o != nil && !IsNil(o.Categories) {
+		return true
+	}
+
+	return false
+}
+
+// SetCategories gets a reference to the given []string and assigns it to the Categories field.
+func (o *ResponsesEnums) SetCategories(v []string) {
+	o.Categories = v
+}
+
+// GetCelestialsStatuses returns the CelestialsStatuses field value if set, zero value otherwise.
+func (o *ResponsesEnums) GetCelestialsStatuses() []string {
+	if o == nil || IsNil(o.CelestialsStatuses) {
+		var ret []string
+		return ret
+	}
+	return o.CelestialsStatuses
+}
+
+// GetCelestialsStatusesOk returns a tuple with the CelestialsStatuses field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesEnums) GetCelestialsStatusesOk() ([]string, bool) {
+	if o == nil || IsNil(o.CelestialsStatuses) {
+		return nil, false
+	}
+	return o.CelestialsStatuses, true
+}
+
+// HasCelestialsStatuses returns a boolean if a field has been set.
+func (o *ResponsesEnums) HasCelestialsStatuses() bool {
+	if o != nil && !IsNil(o.CelestialsStatuses) {
+		return true
+	}
+
+	return false
+}
+
+// SetCelestialsStatuses gets a reference to the given []string and assigns it to the CelestialsStatuses field.
+func (o *ResponsesEnums) SetCelestialsStatuses(v []string) {
+	o.CelestialsStatuses = v
 }
 
 // GetEventType returns the EventType field value if set, zero value otherwise.
@@ -74,6 +147,38 @@ func (o *ResponsesEnums) SetEventType(v []string) {
 	o.EventType = v
 }
 
+// GetIbcChannelStatus returns the IbcChannelStatus field value if set, zero value otherwise.
+func (o *ResponsesEnums) GetIbcChannelStatus() []string {
+	if o == nil || IsNil(o.IbcChannelStatus) {
+		var ret []string
+		return ret
+	}
+	return o.IbcChannelStatus
+}
+
+// GetIbcChannelStatusOk returns a tuple with the IbcChannelStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesEnums) GetIbcChannelStatusOk() ([]string, bool) {
+	if o == nil || IsNil(o.IbcChannelStatus) {
+		return nil, false
+	}
+	return o.IbcChannelStatus, true
+}
+
+// HasIbcChannelStatus returns a boolean if a field has been set.
+func (o *ResponsesEnums) HasIbcChannelStatus() bool {
+	if o != nil && !IsNil(o.IbcChannelStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetIbcChannelStatus gets a reference to the given []string and assigns it to the IbcChannelStatus field.
+func (o *ResponsesEnums) SetIbcChannelStatus(v []string) {
+	o.IbcChannelStatus = v
+}
+
 // GetMessageType returns the MessageType field value if set, zero value otherwise.
 func (o *ResponsesEnums) GetMessageType() []string {
 	if o == nil || IsNil(o.MessageType) {
@@ -104,6 +209,102 @@ func (o *ResponsesEnums) HasMessageType() bool {
 // SetMessageType gets a reference to the given []string and assigns it to the MessageType field.
 func (o *ResponsesEnums) SetMessageType(v []string) {
 	o.MessageType = v
+}
+
+// GetProposalStatus returns the ProposalStatus field value if set, zero value otherwise.
+func (o *ResponsesEnums) GetProposalStatus() []string {
+	if o == nil || IsNil(o.ProposalStatus) {
+		var ret []string
+		return ret
+	}
+	return o.ProposalStatus
+}
+
+// GetProposalStatusOk returns a tuple with the ProposalStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesEnums) GetProposalStatusOk() ([]string, bool) {
+	if o == nil || IsNil(o.ProposalStatus) {
+		return nil, false
+	}
+	return o.ProposalStatus, true
+}
+
+// HasProposalStatus returns a boolean if a field has been set.
+func (o *ResponsesEnums) HasProposalStatus() bool {
+	if o != nil && !IsNil(o.ProposalStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetProposalStatus gets a reference to the given []string and assigns it to the ProposalStatus field.
+func (o *ResponsesEnums) SetProposalStatus(v []string) {
+	o.ProposalStatus = v
+}
+
+// GetProposalType returns the ProposalType field value if set, zero value otherwise.
+func (o *ResponsesEnums) GetProposalType() []string {
+	if o == nil || IsNil(o.ProposalType) {
+		var ret []string
+		return ret
+	}
+	return o.ProposalType
+}
+
+// GetProposalTypeOk returns a tuple with the ProposalType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesEnums) GetProposalTypeOk() ([]string, bool) {
+	if o == nil || IsNil(o.ProposalType) {
+		return nil, false
+	}
+	return o.ProposalType, true
+}
+
+// HasProposalType returns a boolean if a field has been set.
+func (o *ResponsesEnums) HasProposalType() bool {
+	if o != nil && !IsNil(o.ProposalType) {
+		return true
+	}
+
+	return false
+}
+
+// SetProposalType gets a reference to the given []string and assigns it to the ProposalType field.
+func (o *ResponsesEnums) SetProposalType(v []string) {
+	o.ProposalType = v
+}
+
+// GetRollupType returns the RollupType field value if set, zero value otherwise.
+func (o *ResponsesEnums) GetRollupType() []string {
+	if o == nil || IsNil(o.RollupType) {
+		var ret []string
+		return ret
+	}
+	return o.RollupType
+}
+
+// GetRollupTypeOk returns a tuple with the RollupType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesEnums) GetRollupTypeOk() ([]string, bool) {
+	if o == nil || IsNil(o.RollupType) {
+		return nil, false
+	}
+	return o.RollupType, true
+}
+
+// HasRollupType returns a boolean if a field has been set.
+func (o *ResponsesEnums) HasRollupType() bool {
+	if o != nil && !IsNil(o.RollupType) {
+		return true
+	}
+
+	return false
+}
+
+// SetRollupType gets a reference to the given []string and assigns it to the RollupType field.
+func (o *ResponsesEnums) SetRollupType(v []string) {
+	o.RollupType = v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -138,6 +339,102 @@ func (o *ResponsesEnums) SetStatus(v []string) {
 	o.Status = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *ResponsesEnums) GetTags() []string {
+	if o == nil || IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesEnums) GetTagsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *ResponsesEnums) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *ResponsesEnums) SetTags(v []string) {
+	o.Tags = v
+}
+
+// GetVoteOption returns the VoteOption field value if set, zero value otherwise.
+func (o *ResponsesEnums) GetVoteOption() []string {
+	if o == nil || IsNil(o.VoteOption) {
+		var ret []string
+		return ret
+	}
+	return o.VoteOption
+}
+
+// GetVoteOptionOk returns a tuple with the VoteOption field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesEnums) GetVoteOptionOk() ([]string, bool) {
+	if o == nil || IsNil(o.VoteOption) {
+		return nil, false
+	}
+	return o.VoteOption, true
+}
+
+// HasVoteOption returns a boolean if a field has been set.
+func (o *ResponsesEnums) HasVoteOption() bool {
+	if o != nil && !IsNil(o.VoteOption) {
+		return true
+	}
+
+	return false
+}
+
+// SetVoteOption gets a reference to the given []string and assigns it to the VoteOption field.
+func (o *ResponsesEnums) SetVoteOption(v []string) {
+	o.VoteOption = v
+}
+
+// GetVoteType returns the VoteType field value if set, zero value otherwise.
+func (o *ResponsesEnums) GetVoteType() []string {
+	if o == nil || IsNil(o.VoteType) {
+		var ret []string
+		return ret
+	}
+	return o.VoteType
+}
+
+// GetVoteTypeOk returns a tuple with the VoteType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsesEnums) GetVoteTypeOk() ([]string, bool) {
+	if o == nil || IsNil(o.VoteType) {
+		return nil, false
+	}
+	return o.VoteType, true
+}
+
+// HasVoteType returns a boolean if a field has been set.
+func (o *ResponsesEnums) HasVoteType() bool {
+	if o != nil && !IsNil(o.VoteType) {
+		return true
+	}
+
+	return false
+}
+
+// SetVoteType gets a reference to the given []string and assigns it to the VoteType field.
+func (o *ResponsesEnums) SetVoteType(v []string) {
+	o.VoteType = v
+}
+
 func (o ResponsesEnums) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -148,14 +445,41 @@ func (o ResponsesEnums) MarshalJSON() ([]byte, error) {
 
 func (o ResponsesEnums) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Categories) {
+		toSerialize["categories"] = o.Categories
+	}
+	if !IsNil(o.CelestialsStatuses) {
+		toSerialize["celestials_statuses"] = o.CelestialsStatuses
+	}
 	if !IsNil(o.EventType) {
 		toSerialize["event_type"] = o.EventType
+	}
+	if !IsNil(o.IbcChannelStatus) {
+		toSerialize["ibc_channel_status"] = o.IbcChannelStatus
 	}
 	if !IsNil(o.MessageType) {
 		toSerialize["message_type"] = o.MessageType
 	}
+	if !IsNil(o.ProposalStatus) {
+		toSerialize["proposal_status"] = o.ProposalStatus
+	}
+	if !IsNil(o.ProposalType) {
+		toSerialize["proposal_type"] = o.ProposalType
+	}
+	if !IsNil(o.RollupType) {
+		toSerialize["rollup_type"] = o.RollupType
+	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.VoteOption) {
+		toSerialize["vote_option"] = o.VoteOption
+	}
+	if !IsNil(o.VoteType) {
+		toSerialize["vote_type"] = o.VoteType
 	}
 	return toSerialize, nil
 }

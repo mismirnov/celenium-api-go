@@ -61,6 +61,18 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test NamespaceAPIService GetBlobProof", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.NamespaceAPI.GetBlobProof(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test NamespaceAPIService GetBlobs", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -80,18 +92,6 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 		var id string
 
 		resp, httpRes, err := apiClient.NamespaceAPI.GetNamespace(context.Background(), id).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test NamespaceAPIService GetNamespaceActive", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.NamespaceAPI.GetNamespaceActive(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -136,18 +136,6 @@ func Test_celenium_NamespaceAPIService(t *testing.T) {
 		var version int32
 
 		resp, httpRes, err := apiClient.NamespaceAPI.GetNamespaceByVersionAndId(context.Background(), id, version).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test NamespaceAPIService GetNamespaceCount", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.NamespaceAPI.GetNamespaceCount(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

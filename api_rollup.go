@@ -151,9 +151,10 @@ func (a *RollupAPIService) GetRollupExecute(r ApiGetRollupRequest) (*ResponsesRo
 type ApiGetRollupAllSeriesRequest struct {
 	ctx context.Context
 	ApiService *RollupAPIService
+	timeframe string
 }
 
-func (r ApiGetRollupAllSeriesRequest) Execute() ([]ResponsesRollupAllSeriesItem, *http.Response, error) {
+func (r ApiGetRollupAllSeriesRequest) Execute() ([]ResponsesRollupAllSeriesResponse, *http.Response, error) {
 	return r.ApiService.GetRollupAllSeriesExecute(r)
 }
 
@@ -163,23 +164,25 @@ GetRollupAllSeries Get series for all rollups
 Get series for all rollups
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param timeframe Timeframe
  @return ApiGetRollupAllSeriesRequest
 */
-func (a *RollupAPIService) GetRollupAllSeries(ctx context.Context) ApiGetRollupAllSeriesRequest {
+func (a *RollupAPIService) GetRollupAllSeries(ctx context.Context, timeframe string) ApiGetRollupAllSeriesRequest {
 	return ApiGetRollupAllSeriesRequest{
 		ApiService: a,
 		ctx: ctx,
+		timeframe: timeframe,
 	}
 }
 
 // Execute executes the request
-//  @return []ResponsesRollupAllSeriesItem
-func (a *RollupAPIService) GetRollupAllSeriesExecute(r ApiGetRollupAllSeriesRequest) ([]ResponsesRollupAllSeriesItem, *http.Response, error) {
+//  @return []ResponsesRollupAllSeriesResponse
+func (a *RollupAPIService) GetRollupAllSeriesExecute(r ApiGetRollupAllSeriesRequest) ([]ResponsesRollupAllSeriesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []ResponsesRollupAllSeriesItem
+		localVarReturnValue  []ResponsesRollupAllSeriesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RollupAPIService.GetRollupAllSeries")
@@ -187,7 +190,8 @@ func (a *RollupAPIService) GetRollupAllSeriesExecute(r ApiGetRollupAllSeriesRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/rollup/stats/series"
+	localVarPath := localBasePath + "/rollup/stats/series/{timeframe}"
+	localVarPath = strings.Replace(localVarPath, "{"+"timeframe"+"}", url.PathEscape(parameterValueToString(r.timeframe, "timeframe")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1110,6 +1114,11 @@ type ApiListRollupRequest struct {
 	offset *int32
 	sort *string
 	sortBy *string
+	category *string
+	tags *string
+	stack *string
+	provider *string
+	isActive *bool
 }
 
 // Count of requested entities
@@ -1133,6 +1142,36 @@ func (r ApiListRollupRequest) Sort(sort string) ApiListRollupRequest {
 // Sort field. Default: size
 func (r ApiListRollupRequest) SortBy(sortBy string) ApiListRollupRequest {
 	r.sortBy = &sortBy
+	return r
+}
+
+// Comma-separated rollup category list
+func (r ApiListRollupRequest) Category(category string) ApiListRollupRequest {
+	r.category = &category
+	return r
+}
+
+// Comma-separated rollup tags list
+func (r ApiListRollupRequest) Tags(tags string) ApiListRollupRequest {
+	r.tags = &tags
+	return r
+}
+
+// Comma-separated rollup stack list
+func (r ApiListRollupRequest) Stack(stack string) ApiListRollupRequest {
+	r.stack = &stack
+	return r
+}
+
+// Comma-separated rollup provider list
+func (r ApiListRollupRequest) Provider(provider string) ApiListRollupRequest {
+	r.provider = &provider
+	return r
+}
+
+// If true, shows rollups with activity over the last month
+func (r ApiListRollupRequest) IsActive(isActive bool) ApiListRollupRequest {
+	r.isActive = &isActive
 	return r
 }
 
@@ -1187,6 +1226,21 @@ func (a *RollupAPIService) ListRollupExecute(r ApiListRollupRequest) ([]Response
 	}
 	if r.sortBy != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_by", r.sortBy, "", "")
+	}
+	if r.category != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "category", r.category, "", "")
+	}
+	if r.tags != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tags", r.tags, "", "")
+	}
+	if r.stack != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "stack", r.stack, "", "")
+	}
+	if r.provider != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "provider", r.provider, "", "")
+	}
+	if r.isActive != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "is_active", r.isActive, "", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1270,6 +1324,10 @@ type ApiListRollup24hRequest struct {
 	offset *int32
 	sort *string
 	sortBy *string
+	category *string
+	tags *string
+	stack *string
+	provider *string
 }
 
 // Count of requested entities
@@ -1293,6 +1351,30 @@ func (r ApiListRollup24hRequest) Sort(sort string) ApiListRollup24hRequest {
 // Sort field. Default: mb_price
 func (r ApiListRollup24hRequest) SortBy(sortBy string) ApiListRollup24hRequest {
 	r.sortBy = &sortBy
+	return r
+}
+
+// Comma-separated rollup category list
+func (r ApiListRollup24hRequest) Category(category string) ApiListRollup24hRequest {
+	r.category = &category
+	return r
+}
+
+// Comma-separated rollup tags list
+func (r ApiListRollup24hRequest) Tags(tags string) ApiListRollup24hRequest {
+	r.tags = &tags
+	return r
+}
+
+// Comma-separated rollup stack list
+func (r ApiListRollup24hRequest) Stack(stack string) ApiListRollup24hRequest {
+	r.stack = &stack
+	return r
+}
+
+// Comma-separated rollup provider list
+func (r ApiListRollup24hRequest) Provider(provider string) ApiListRollup24hRequest {
+	r.provider = &provider
 	return r
 }
 
@@ -1347,6 +1429,18 @@ func (a *RollupAPIService) ListRollup24hExecute(r ApiListRollup24hRequest) ([]Re
 	}
 	if r.sortBy != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_by", r.sortBy, "", "")
+	}
+	if r.category != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "category", r.category, "", "")
+	}
+	if r.tags != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tags", r.tags, "", "")
+	}
+	if r.stack != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "stack", r.stack, "", "")
+	}
+	if r.provider != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "provider", r.provider, "", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1554,4 +1648,144 @@ func (a *RollupAPIService) RollupExportExecute(r ApiRollupExportRequest) (*http.
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type ApiRollupGroupedStatisticsRequest struct {
+	ctx context.Context
+	ApiService *RollupAPIService
+	func_ *string
+	column *string
+}
+
+// Aggregate function
+func (r ApiRollupGroupedStatisticsRequest) Func_(func_ string) ApiRollupGroupedStatisticsRequest {
+	r.func_ = &func_
+	return r
+}
+
+// Group column
+func (r ApiRollupGroupedStatisticsRequest) Column(column string) ApiRollupGroupedStatisticsRequest {
+	r.column = &column
+	return r
+}
+
+func (r ApiRollupGroupedStatisticsRequest) Execute() ([]ResponsesRollupGroupedStats, *http.Response, error) {
+	return r.ApiService.RollupGroupedStatisticsExecute(r)
+}
+
+/*
+RollupGroupedStatistics Rollup Grouped Statistics
+
+Rollup Grouped Statistics
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiRollupGroupedStatisticsRequest
+*/
+func (a *RollupAPIService) RollupGroupedStatistics(ctx context.Context) ApiRollupGroupedStatisticsRequest {
+	return ApiRollupGroupedStatisticsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return []ResponsesRollupGroupedStats
+func (a *RollupAPIService) RollupGroupedStatisticsExecute(r ApiRollupGroupedStatisticsRequest) ([]ResponsesRollupGroupedStats, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ResponsesRollupGroupedStats
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RollupAPIService.RollupGroupedStatistics")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/rollup/group"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.func_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "func", r.func_, "", "")
+	}
+	if r.column != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "column", r.column, "", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v HandlerError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v HandlerError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

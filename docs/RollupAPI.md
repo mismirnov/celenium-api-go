@@ -5,7 +5,7 @@ All URIs are relative to *https://api-mainnet.celenium.io/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetRollup**](RollupAPI.md#GetRollup) | **Get** /rollup/{id} | Get rollup info
-[**GetRollupAllSeries**](RollupAPI.md#GetRollupAllSeries) | **Get** /rollup/stats/series | Get series for all rollups
+[**GetRollupAllSeries**](RollupAPI.md#GetRollupAllSeries) | **Get** /rollup/stats/series/{timeframe} | Get series for all rollups
 [**GetRollupBlobs**](RollupAPI.md#GetRollupBlobs) | **Get** /rollup/{id}/blobs | Get rollup blobs
 [**GetRollupBySlug**](RollupAPI.md#GetRollupBySlug) | **Get** /rollup/slug/{slug} | Get rollup by slug
 [**GetRollupDistribution**](RollupAPI.md#GetRollupDistribution) | **Get** /rollup/{id}/distribution/{name}/{timeframe} | Get rollup distribution
@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**ListRollup**](RollupAPI.md#ListRollup) | **Get** /rollup | List rollups info
 [**ListRollup24h**](RollupAPI.md#ListRollup24h) | **Get** /rollup/day | List rollups info with stats by previous 24 hours
 [**RollupExport**](RollupAPI.md#RollupExport) | **Get** /rollup/{id}/export | Export rollup blobs
+[**RollupGroupedStatistics**](RollupAPI.md#RollupGroupedStatistics) | **Get** /rollup/group | Rollup Grouped Statistics
 
 
 
@@ -90,7 +91,7 @@ No authorization required
 
 ## GetRollupAllSeries
 
-> []ResponsesRollupAllSeriesItem GetRollupAllSeries(ctx).Execute()
+> []ResponsesRollupAllSeriesResponse GetRollupAllSeries(ctx, timeframe).Execute()
 
 Get series for all rollups
 
@@ -109,31 +110,40 @@ import (
 )
 
 func main() {
+	timeframe := "timeframe_example" // string | Timeframe
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RollupAPI.GetRollupAllSeries(context.Background()).Execute()
+	resp, r, err := apiClient.RollupAPI.GetRollupAllSeries(context.Background(), timeframe).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RollupAPI.GetRollupAllSeries``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRollupAllSeries`: []ResponsesRollupAllSeriesItem
+	// response from `GetRollupAllSeries`: []ResponsesRollupAllSeriesResponse
 	fmt.Fprintf(os.Stdout, "Response from `RollupAPI.GetRollupAllSeries`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**timeframe** | **string** | Timeframe | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetRollupAllSeriesRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 ### Return type
 
-[**[]ResponsesRollupAllSeriesItem**](ResponsesRollupAllSeriesItem.md)
+[**[]ResponsesRollupAllSeriesResponse**](ResponsesRollupAllSeriesResponse.md)
 
 ### Authorization
 
@@ -592,7 +602,7 @@ No authorization required
 
 ## ListRollup
 
-> []ResponsesRollupWithStats ListRollup(ctx).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Execute()
+> []ResponsesRollupWithStats ListRollup(ctx).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Category(category).Tags(tags).Stack(stack).Provider(provider).IsActive(isActive).Execute()
 
 List rollups info
 
@@ -615,10 +625,15 @@ func main() {
 	offset := int32(56) // int32 | Offset (optional)
 	sort := "sort_example" // string | Sort order. Default: desc (optional)
 	sortBy := "sortBy_example" // string | Sort field. Default: size (optional)
+	category := "category_example" // string | Comma-separated rollup category list (optional)
+	tags := "tags_example" // string | Comma-separated rollup tags list (optional)
+	stack := "stack_example" // string | Comma-separated rollup stack list (optional)
+	provider := "provider_example" // string | Comma-separated rollup provider list (optional)
+	isActive := true // bool | If true, shows rollups with activity over the last month (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RollupAPI.ListRollup(context.Background()).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Execute()
+	resp, r, err := apiClient.RollupAPI.ListRollup(context.Background()).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Category(category).Tags(tags).Stack(stack).Provider(provider).IsActive(isActive).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RollupAPI.ListRollup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -643,6 +658,11 @@ Name | Type | Description  | Notes
  **offset** | **int32** | Offset | 
  **sort** | **string** | Sort order. Default: desc | 
  **sortBy** | **string** | Sort field. Default: size | 
+ **category** | **string** | Comma-separated rollup category list | 
+ **tags** | **string** | Comma-separated rollup tags list | 
+ **stack** | **string** | Comma-separated rollup stack list | 
+ **provider** | **string** | Comma-separated rollup provider list | 
+ **isActive** | **bool** | If true, shows rollups with activity over the last month | 
 
 ### Return type
 
@@ -664,7 +684,7 @@ No authorization required
 
 ## ListRollup24h
 
-> []ResponsesRollupWithDayStats ListRollup24h(ctx).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Execute()
+> []ResponsesRollupWithDayStats ListRollup24h(ctx).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Category(category).Tags(tags).Stack(stack).Provider(provider).Execute()
 
 List rollups info with stats by previous 24 hours
 
@@ -687,10 +707,14 @@ func main() {
 	offset := int32(56) // int32 | Offset (optional)
 	sort := "sort_example" // string | Sort order. Default: desc (optional)
 	sortBy := "sortBy_example" // string | Sort field. Default: mb_price (optional)
+	category := "category_example" // string | Comma-separated rollup category list (optional)
+	tags := "tags_example" // string | Comma-separated rollup tags list (optional)
+	stack := "stack_example" // string | Comma-separated rollup stack list (optional)
+	provider := "provider_example" // string | Comma-separated rollup provider list (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RollupAPI.ListRollup24h(context.Background()).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Execute()
+	resp, r, err := apiClient.RollupAPI.ListRollup24h(context.Background()).Limit(limit).Offset(offset).Sort(sort).SortBy(sortBy).Category(category).Tags(tags).Stack(stack).Provider(provider).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RollupAPI.ListRollup24h``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -715,6 +739,10 @@ Name | Type | Description  | Notes
  **offset** | **int32** | Offset | 
  **sort** | **string** | Sort order. Default: desc | 
  **sortBy** | **string** | Sort field. Default: mb_price | 
+ **category** | **string** | Comma-separated rollup category list | 
+ **tags** | **string** | Comma-separated rollup tags list | 
+ **stack** | **string** | Comma-separated rollup stack list | 
+ **provider** | **string** | Comma-separated rollup provider list | 
 
 ### Return type
 
@@ -800,6 +828,74 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RollupGroupedStatistics
+
+> []ResponsesRollupGroupedStats RollupGroupedStatistics(ctx).Func_(func_).Column(column).Execute()
+
+Rollup Grouped Statistics
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/mismirnov/celenium-api-go"
+)
+
+func main() {
+	func_ := "func__example" // string | Aggregate function (optional)
+	column := "column_example" // string | Group column (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RollupAPI.RollupGroupedStatistics(context.Background()).Func_(func_).Column(column).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RollupAPI.RollupGroupedStatistics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RollupGroupedStatistics`: []ResponsesRollupGroupedStats
+	fmt.Fprintf(os.Stdout, "Response from `RollupAPI.RollupGroupedStatistics`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRollupGroupedStatisticsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **func_** | **string** | Aggregate function | 
+ **column** | **string** | Group column | 
+
+### Return type
+
+[**[]ResponsesRollupGroupedStats**](ResponsesRollupGroupedStats.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

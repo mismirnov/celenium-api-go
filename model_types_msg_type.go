@@ -81,6 +81,9 @@ const (
 	MsgUpdateClient TypesMsgType = "MsgUpdateClient"
 	MsgUpgradeClient TypesMsgType = "MsgUpgradeClient"
 	MsgSubmitMisbehaviour TypesMsgType = "MsgSubmitMisbehaviour"
+	MsgRecoverClient TypesMsgType = "MsgRecoverClient"
+	MsgIBCSoftwareUpgrade TypesMsgType = "MsgIBCSoftwareUpgrade"
+	MsgUpdateParams TypesMsgType = "MsgUpdateParams"
 	MsgConnectionOpenInit TypesMsgType = "MsgConnectionOpenInit"
 	MsgConnectionOpenTry TypesMsgType = "MsgConnectionOpenTry"
 	MsgConnectionOpenAck TypesMsgType = "MsgConnectionOpenAck"
@@ -95,6 +98,18 @@ const (
 	MsgTimeout TypesMsgType = "MsgTimeout"
 	MsgTimeoutOnClose TypesMsgType = "MsgTimeoutOnClose"
 	MsgAcknowledgement TypesMsgType = "MsgAcknowledgement"
+	MsgSignalVersion TypesMsgType = "MsgSignalVersion"
+	MsgTryUpgrade TypesMsgType = "MsgTryUpgrade"
+	MsgCreateMailbox TypesMsgType = "MsgCreateMailbox"
+	MsgProcessMessage TypesMsgType = "MsgProcessMessage"
+	MsgSetMailbox TypesMsgType = "MsgSetMailbox"
+	MsgCreateCollateralToken TypesMsgType = "MsgCreateCollateralToken"
+	MsgCreateSyntheticToken TypesMsgType = "MsgCreateSyntheticToken"
+	MsgSetToken TypesMsgType = "MsgSetToken"
+	MsgEnrollRemoteRouter TypesMsgType = "MsgEnrollRemoteRouter"
+	MsgUnrollRemoteRouter TypesMsgType = "MsgUnrollRemoteRouter"
+	MsgRemoteTransfer TypesMsgType = "MsgRemoteTransfer"
+	MsgUpdateMinfeeParams TypesMsgType = "MsgUpdateMinfeeParams"
 )
 
 // All allowed values of TypesMsgType enum
@@ -159,6 +174,9 @@ var AllowedTypesMsgTypeEnumValues = []TypesMsgType{
 	"MsgUpdateClient",
 	"MsgUpgradeClient",
 	"MsgSubmitMisbehaviour",
+	"MsgRecoverClient",
+	"MsgIBCSoftwareUpgrade",
+	"MsgUpdateParams",
 	"MsgConnectionOpenInit",
 	"MsgConnectionOpenTry",
 	"MsgConnectionOpenAck",
@@ -173,6 +191,18 @@ var AllowedTypesMsgTypeEnumValues = []TypesMsgType{
 	"MsgTimeout",
 	"MsgTimeoutOnClose",
 	"MsgAcknowledgement",
+	"MsgSignalVersion",
+	"MsgTryUpgrade",
+	"MsgCreateMailbox",
+	"MsgProcessMessage",
+	"MsgSetMailbox",
+	"MsgCreateCollateralToken",
+	"MsgCreateSyntheticToken",
+	"MsgSetToken",
+	"MsgEnrollRemoteRouter",
+	"MsgUnrollRemoteRouter",
+	"MsgRemoteTransfer",
+	"MsgUpdateMinfeeParams",
 }
 
 func (v *TypesMsgType) UnmarshalJSON(src []byte) error {
